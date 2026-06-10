@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { useRef, useState, useEffect } from "react";
+import { ArrowUpRight, Mail } from "lucide-react";
 import profile from "@/assets/profile.png";
 import nameCard from "@/assets/name_card.png";
 import imgKainPo from "@/assets/kainpo.png";
@@ -401,8 +402,8 @@ function Index() {
                 <div className="px-4 pt-3 pb-5">
                   <div className="flex items-start justify-between gap-3 mb-2">
                     <h3 className="text-cream font-bold text-lg leading-snug">{p.title}</h3>
-                    <div className="shrink-0 w-9 h-9 rounded-full border border-cream/20 flex items-center justify-center text-cream/50 text-sm group-hover:bg-orange group-hover:border-orange group-hover:text-cream transition-all duration-200">
-                      ↗
+                    <div className="shrink-0 w-9 h-9 rounded-full border border-cream/20 flex items-center justify-center text-cream/50 group-hover:bg-orange group-hover:border-orange group-hover:text-cream transition-all duration-200">
+                      <ArrowUpRight className="w-4 h-4" />
                     </div>
                   </div>
                   <p className="text-cream/60 text-sm leading-relaxed mb-3 line-clamp-2">{p.blurb}</p>
@@ -757,7 +758,7 @@ function ProjectModal({
               href={`mailto:crondennis@gmail.com?subject=Request%20Demo%20for%20${encodeURIComponent(project.title)}&body=Hi%20Ron,%0D%0A%0D%0AI%20would%20like%20to%20request%20a%20demo%20for%20the%20project:%20${encodeURIComponent(project.title)}.%0D%0A%0D%0AThanks!`}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-blue text-blue hover:bg-blue hover:text-cream transition"
             >
-              Request a Demo ✉
+              Request a Demo <Mail className="w-4 h-4" />
             </a>
           </div>
         </div>

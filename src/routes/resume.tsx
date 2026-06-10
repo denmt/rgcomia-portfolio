@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
+import { ArrowLeft, Download } from "lucide-react";
 import resumePhoto from "@/assets/resume_photo.png";
 // @ts-ignore
 import resumePdf from "@/assets/ResumeCV.pdf";
@@ -146,14 +147,14 @@ function ResumePage() {
       {/* Floating control bar */}
       <div className="relative z-10 no-print max-w-7xl mx-auto mb-8 flex justify-between items-center bg-blue text-cream px-6 py-4 rounded-2xl shadow-lg">
         <Link to="/" className="font-display font-bold text-sm uppercase tracking-wider hover:text-yellow transition-colors flex items-center gap-2">
-          ← Back to Portfolio
+          <ArrowLeft className="w-4 h-4" /> Back to Portfolio
         </Link>
         <a
           href={resumePdf}
           download="Ron_Dennis_Comia_Resume.pdf"
           className="bg-orange hover:bg-orange/85 transition-colors text-cream font-semibold px-5 py-2.5 rounded-full text-sm uppercase tracking-wider flex items-center gap-2 cursor-pointer"
         >
-          Download PDF ⬇
+          Download PDF <Download className="w-4 h-4" />
         </a>
       </div>
 
