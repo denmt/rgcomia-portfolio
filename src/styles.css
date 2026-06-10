@@ -1,0 +1,145 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-cream: var(--cream);
+  --color-ink: var(--ink);
+  --color-orange: var(--orange);
+  --color-orange-soft: var(--orange-soft);
+  --color-blue: var(--blue);
+  --color-blue-deep: var(--blue-deep);
+  --color-yellow: var(--yellow);
+  --color-coral: var(--coral);
+  --color-primary: var(--orange);
+  --color-primary-foreground: var(--cream);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --font-display: "Poppins", sans-serif;
+  --font-marker: "Poppins", sans-serif;
+  --font-body: "Poppins", sans-serif;
+  --font-grot: "Poppins", sans-serif;
+}
+
+:root {
+  --cream: oklch(0.965 0.035 90);
+  --ink: oklch(0.18 0.02 60);
+  --orange: oklch(0.72 0.19 45);
+  --orange-soft: oklch(0.85 0.12 60);
+  --blue: oklch(0.45 0.2 265);
+  --blue-deep: oklch(0.32 0.18 265);
+  --yellow: oklch(0.88 0.16 90);
+  --coral: oklch(0.75 0.18 25);
+
+  --background: var(--cream);
+  --foreground: var(--ink);
+  --muted: oklch(0.92 0.03 85);
+  --muted-foreground: oklch(0.45 0.03 60);
+  --border: oklch(0.85 0.05 70);
+  --radius: 1rem;
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--orange); color: var(--cream); }
+}
+
+@utility grid-paper {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--orange) 18%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--orange) 18%, transparent) 1px, transparent 1px);
+  background-size: 28px 28px;
+  animation: moveGrid 90s linear infinite;
+}
+
+@keyframes moveGrid {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 28px 28px;
+  }
+}
+
+@utility text-stroke {
+  -webkit-text-stroke: 2px var(--ink);
+  color: transparent;
+}
+
+@utility marker-underline {
+  background-image: linear-gradient(transparent 62%, color-mix(in oklab, var(--yellow) 90%, transparent) 62%);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+@utility animate-draw-graph {
+  animation: drawGraph 3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes drawGraph {
+  from {
+    stroke-dashoffset: 2000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes stickerWiggleInvite {
+  0%, 90%, 100% {
+    transform: translate(-50%, -50%) scale(1) rotate(var(--rot, 0deg));
+  }
+  92% {
+    transform: translate(-50%, -53%) scale(1.04) rotate(calc(var(--rot, 0deg) - 4deg));
+  }
+  95% {
+    transform: translate(-50%, -53%) scale(1.04) rotate(calc(var(--rot, 0deg) + 4deg));
+  }
+  97% {
+    transform: translate(-50%, -50%) scale(1.01) rotate(calc(var(--rot, 0deg) - 2deg));
+  }
+}
+
+@keyframes letterIn {
+  from {
+    opacity: 0;
+    transform: translateY(48px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ── Loading screen ─────────────────────────────── */
+@keyframes logoReveal {
+  0%   { opacity: 0; transform: scale(0.7) translateY(16px); }
+  60%  { opacity: 1; transform: scale(1.04) translateY(0); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes loaderScan {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(400%); }
+}
+
+@keyframes loaderSlideUp {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-100%); }
+}
+
+@keyframes loaderFadeOut {
+  0%   { opacity: 1; }
+  100% { opacity: 0; pointer-events: none; }
+}
