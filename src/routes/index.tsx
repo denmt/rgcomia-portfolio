@@ -282,8 +282,8 @@ function Index() {
   return (
     <div className="min-h-screen bg-cream text-ink overflow-x-hidden">
       {/* NAV */}
-      <header className="px-6 md:px-12 p-3 m-2">
-        <nav className="relative flex items-center justify-center py-4">
+      <header className="sticky top-0 z-50 px-6 md:px-12 py-2 bg-cream/75 backdrop-blur-md border-b border-ink/5">
+        <nav className="relative flex items-center justify-center py-2">
 
           {/* Centered Navigation */}
           <ul className="flex items-center gap-6 md:gap-10 text-base font-medium">
