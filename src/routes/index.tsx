@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { useRef, useState, useEffect } from "react";
-import { ArrowUpRight, Mail } from "lucide-react";
+import { ArrowUpRight, Mail, ArrowUp } from "lucide-react";
 import profile from "@/assets/profile.png";
 import nameCard from "@/assets/name_card.png";
 import imgKainPo from "@/assets/kainpo.png";
@@ -279,11 +279,29 @@ const awards = [
 
 function Index() {
   const [selectedProject, setSelectedProject] = useState<(typeof projects)[number] | null>(null);
+  const [showScroll, setShowScroll] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 400) {
+        setShowScroll(true);
+      } else {
+        setShowScroll(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <div className="min-h-screen bg-cream text-ink">
       {/* NAV */}
-      <header className="sticky top-0 z-50 px-6 md:px-12 py-2 bg-cream/75 backdrop-blur-md border-b border-ink/5">
-        <nav className="relative flex items-center justify-center py-2">
+      <header className="px-6 md:px-12 p-3 m-2">
+        <nav className="relative flex items-center justify-center py-4">
 
           {/* Centered Navigation */}
           <ul className="flex items-center gap-6 md:gap-10 text-base font-medium">
@@ -499,6 +517,15 @@ function Index() {
         </div>
       </footer>
       </main>
+      {showScroll && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-6 right-6 z-50 p-3.5 rounded-full bg-orange text-cream shadow-xl hover:bg-ink hover:text-cream transition-all duration-300 cursor-pointer focus:outline-none transform hover:-translate-y-1 active:translate-y-0 hover:scale-105 active:scale-95 animate-fade-in"
+          aria-label="Back to Top"
+        >
+          <ArrowUp className="w-5 h-5 stroke-[2.5]" />
+        </button>
+      )}
       {selectedProject && (
         <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
       )}
