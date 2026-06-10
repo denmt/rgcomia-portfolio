@@ -666,6 +666,13 @@ function ProjectModal({
   project: (typeof projects)[number];
   onClose: () => void;
 }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText("crondennis@gmail.com");
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -752,13 +759,19 @@ function ProjectModal({
             ))}
           </div>
           <p className="mt-6 text-ink/70 leading-relaxed text-lg">{project.blurb}</p>
-          <div className="mt-8 flex flex-wrap gap-4">
+          <div className="mt-8 flex flex-wrap gap-3">
             <a
               href={`mailto:crondennis@gmail.com?subject=Request%20Demo%20for%20${encodeURIComponent(project.title)}&body=Hi%20Ron,%0D%0A%0D%0AI%20would%20like%20to%20request%20a%20demo%20for%20the%20project:%20${encodeURIComponent(project.title)}.%0D%0A%0D%0AThanks!`}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-blue text-blue hover:bg-blue hover:text-cream transition"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-blue bg-blue text-cream hover:bg-blue/85 hover:border-blue/85 transition text-sm font-semibold uppercase tracking-wider"
             >
               Request a Demo <Mail className="w-4 h-4" />
             </a>
+            <button
+              onClick={handleCopyEmail}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-ink text-ink hover:bg-ink hover:text-cream transition text-sm font-semibold uppercase tracking-wider cursor-pointer"
+            >
+              {copied ? "Copied! ✓" : "Copy Email"}
+            </button>
           </div>
         </div>
       </div>
