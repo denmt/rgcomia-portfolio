@@ -280,7 +280,7 @@ const awards = [
 function Index() {
   const [selectedProject, setSelectedProject] = useState<(typeof projects)[number] | null>(null);
   return (
-    <div className="min-h-screen bg-cream text-ink overflow-x-hidden">
+    <div className="min-h-screen bg-cream text-ink">
       {/* NAV */}
       <header className="sticky top-0 z-50 px-6 md:px-12 py-2 bg-cream/75 backdrop-blur-md border-b border-ink/5">
         <nav className="relative flex items-center justify-center py-2">
@@ -293,6 +293,8 @@ function Index() {
           </ul>
         </nav>
       </header>
+
+      <main className="overflow-x-hidden">
 
       {/* HERO */}
       <section className="relative px-4 md:px-12 flex flex-col justify-center" style={{ minHeight: 'calc(90vh - 80px)' }}>
@@ -496,6 +498,7 @@ function Index() {
           <span>© 2026 Ron Dennis Comia</span>
         </div>
       </footer>
+      </main>
       {selectedProject && (
         <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
       )}
