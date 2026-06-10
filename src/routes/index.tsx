@@ -480,8 +480,7 @@ function Index() {
             </SectionReveal>
             <SectionReveal delay={180}>
               <p className="mt-8 text-ink/70 max-w-sm">
-                Currently taking on a few thoughtful projects for late 2025.
-                Briefs, hellos and coffee invitations welcome.
+                Open to full-time engineering roles, technical collaborations, and research opportunities. Let's connect and discuss how we can work together.
               </p>
             </SectionReveal>
             <SectionReveal delay={260}>
