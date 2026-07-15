@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRef, useState, useEffect } from "react";
 import { ArrowUpRight, Mail, ArrowUp } from "lucide-react";
 import profile from "@/assets/profile.png";
@@ -17,7 +17,6 @@ import sticker4 from "@/assets/board_sticker4.png";
 import sticker5 from "@/assets/board_sticker5.png";
 import sticker6 from "@/assets/board_sticker6.png";
 import logo from "@/assets/website_logo.png";
-
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -46,7 +45,7 @@ function SectionReveal({
           observer.unobserve(el);
         }
       },
-      { threshold: 0.06, rootMargin: "0px 0px -60px 0px" }
+      { threshold: 0.06, rootMargin: "0px 0px -60px 0px" },
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -58,7 +57,9 @@ function SectionReveal({
       className={className}
       style={{
         opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0) scale(1)" : "translateY(48px) scale(0.98)",
+        transform: visible
+          ? "translateY(0) scale(1)"
+          : "translateY(48px) scale(0.98)",
         transition: `opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms, transform 0.85s cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms`,
       }}
     >
@@ -79,7 +80,9 @@ function InteractiveTitle() {
             const idx = charIndex++;
             const delay = `${idx * 40}ms`;
             return char === " " ? (
-              <span key={ci} className="inline-block">&nbsp;</span>
+              <span key={ci} className="inline-block">
+                &nbsp;
+              </span>
             ) : (
               <span
                 key={ci}
@@ -95,6 +98,175 @@ function InteractiveTitle() {
         </span>
       ))}
     </h1>
+  );
+}
+
+type HeroTileKind = "sunset" | "composition" | "fluid" | "form";
+
+type HeroTile = {
+  no: string;
+  title: string;
+  description: string;
+  kind: HeroTileKind;
+  bg: string;
+  accent: string;
+  label: string;
+  motion: string;
+  delay: string;
+};
+
+const heroTiles: HeroTile[] = [
+  {
+    no: "01",
+    title: "Color Theory",
+    description:
+      "A stylized geometric sunset built from warm-to-cool layers and sharp, graphic light.",
+    kind: "sunset",
+    bg: "linear-gradient(135deg, #4c74f2 0%, #4d63e8 52%, #3651d7 100%)",
+    accent: "#ffcc88",
+    label: "Blue Study",
+    motion: "-3deg",
+    delay: "0s",
+  },
+  {
+    no: "02",
+    title: "Composition",
+    description:
+      "Interlocking bands and arcs that feel locked into place like a structured visual puzzle.",
+    kind: "composition",
+    bg: "linear-gradient(135deg, #4f9d72 0%, #4a8a67 48%, #3c7a5b 100%)",
+    accent: "#ffca4b",
+    label: "Green System",
+    motion: "2deg",
+    delay: "1.1s",
+  },
+  {
+    no: "03",
+    title: "Fluid Art",
+    description:
+      "A watercolor swatch with soft blooms, pooled pigment, and translucent paper texture.",
+    kind: "fluid",
+    bg: "linear-gradient(135deg, #d77ddf 0%, #d06ed8 48%, #b45bd0 100%)",
+    accent: "#69d4ff",
+    label: "Pink Wash",
+    motion: "-1.5deg",
+    delay: "2.2s",
+  },
+  {
+    no: "04",
+    title: "Form & Space",
+    description:
+      "Simple geometric sculptures arranged to balance mass, void, and directional light.",
+    kind: "form",
+    bg: "linear-gradient(135deg, #ff9334 0%, #ff8624 46%, #f26f12 100%)",
+    accent: "#f6e9d6",
+    label: "Orange Volume",
+    motion: "2.5deg",
+    delay: "3.3s",
+  },
+];
+
+function HeroTileArtwork({ kind }: { kind: HeroTileKind }) {
+  if (kind === "sunset") {
+    return (
+      <div className="absolute inset-0 overflow-hidden rounded-[1.25rem]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(255,255,255,0.22),transparent_42%),linear-gradient(180deg,rgba(0,0,0,0.08),transparent_55%)]" />
+        <div className="absolute left-1/2 top-[19%] h-[42%] w-[42%] -translate-x-1/2 rounded-full bg-[radial-gradient(circle_at_40%_40%,#ffe9b0_0%,#ffd06e_36%,#ff9f4f_68%,#ff7a3b_100%)] shadow-[0_18px_45px_rgba(0,0,0,0.22)]" />
+        <div className="absolute left-[16%] top-[34%] h-[12%] w-[68%] rotate-[-14deg] rounded-full bg-[linear-gradient(90deg,rgba(17,24,39,0.86),rgba(17,24,39,0.18))]" />
+        <div className="absolute left-[22%] top-[42%] h-[14%] w-[54%] rotate-[18deg] rounded-full bg-[linear-gradient(90deg,rgba(255,255,255,0.78),rgba(255,255,255,0.04))] mix-blend-screen" />
+        <div className="absolute left-[12%] top-[50%] h-[9%] w-[50%] rotate-[-8deg] rounded-full bg-[linear-gradient(90deg,rgba(48,38,141,0.88),rgba(73,97,255,0.88))]" />
+        <div className="absolute left-[21%] top-[61%] h-[10%] w-[46%] rotate-[26deg] rounded-full bg-[linear-gradient(90deg,#2d4abf,#7da5ff)]" />
+        <div className="absolute left-[33%] top-[71%] h-[9%] w-[39%] rotate-[-34deg] rounded-full bg-[linear-gradient(90deg,#ff9e4a,#ffec95)] opacity-85" />
+        <div className="absolute left-[13%] bottom-[14%] h-[14%] w-[74%] rotate-[-22deg] rounded-full bg-[linear-gradient(90deg,rgba(255,255,255,0.12),rgba(255,255,255,0.02))] blur-[1px]" />
+        <div className="absolute inset-x-[18%] bottom-[12%] h-[10px] rounded-full bg-white/35 blur-[0.5px]" />
+      </div>
+    );
+  }
+
+  if (kind === "composition") {
+    return (
+      <div className="absolute inset-0 overflow-hidden rounded-[1.25rem]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.16),transparent_56%),linear-gradient(135deg,rgba(18,36,25,0.16),transparent_40%)]" />
+        <div className="absolute left-[16%] top-[17%] h-[58%] w-[18%] rotate-[-26deg] rounded-[999px] bg-[linear-gradient(180deg,#ffd870_0%,#f0c04f_28%,#f07b31_72%,#8f2f46_100%)] shadow-[0_10px_28px_rgba(0,0,0,0.22)]" />
+        <div className="absolute left-[30%] top-[22%] h-[54%] w-[16%] rotate-[22deg] rounded-[999px] bg-[linear-gradient(180deg,#1b3b7e_0%,#1b7bd4_40%,#9fdbff_100%)] shadow-[0_10px_28px_rgba(0,0,0,0.18)]" />
+        <div className="absolute left-[44%] top-[18%] h-[12%] w-[42%] rotate-[13deg] rounded-full bg-[linear-gradient(90deg,rgba(248,248,255,0.95),rgba(248,248,255,0.18))]" />
+        <div className="absolute left-[18%] top-[42%] h-[11%] w-[58%] rotate-[-9deg] rounded-full bg-[linear-gradient(90deg,#f4f0d7,#e8c86f,#c77751)] opacity-95" />
+        <div className="absolute left-[32%] top-[53%] h-[10%] w-[40%] rotate-[28deg] rounded-full bg-[linear-gradient(90deg,#0f1e48,#1f2f76,#2841ad)] shadow-[0_8px_18px_rgba(0,0,0,0.18)]" />
+        <div className="absolute inset-x-[18%] bottom-[18%] h-[12px] rounded-full bg-[linear-gradient(90deg,#e9d3ff,#bb6ef0,#7fd3ff)]" />
+        <div className="absolute left-[58%] top-[62%] h-[16%] w-[18%] rounded-[1rem] border border-white/25 bg-white/12 backdrop-blur-[1px]" />
+      </div>
+    );
+  }
+
+  if (kind === "fluid") {
+    return (
+      <div className="absolute inset-0 overflow-hidden rounded-[1.25rem]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_32%,rgba(255,255,255,0.34),transparent_32%),radial-gradient(circle_at_65%_68%,rgba(120,235,255,0.26),transparent_30%),linear-gradient(180deg,rgba(255,255,255,0.16),transparent_55%)]" />
+        <div className="absolute left-[14%] top-[18%] h-[52%] w-[52%] rounded-full bg-[radial-gradient(circle_at_35%_30%,rgba(255,255,255,0.9),rgba(255,255,255,0.1) 30%,rgba(109,234,255,0.16) 58%,rgba(0,0,0,0) 70%)] blur-[1px]" />
+        <div className="absolute left-[32%] top-[28%] h-[30%] w-[30%] rounded-full bg-[radial-gradient(circle_at_30%_30%,#fef6ff_0%,#ffcfef_22%,#f29adf_54%,rgba(242,154,223,0)_72%)] mix-blend-screen blur-[1px]" />
+        <div className="absolute right-[15%] top-[18%] h-[44%] w-[30%] rounded-[40%_60%_50%_50%/38%_52%_48%_62%] bg-[linear-gradient(145deg,rgba(255,255,255,0.88),rgba(255,255,255,0.12))] opacity-95 blur-[0.4px]" />
+        <div className="absolute left-[20%] bottom-[14%] h-[20%] w-[60%] rounded-[45%] bg-[linear-gradient(90deg,rgba(255,255,255,0.26),rgba(255,255,255,0.02))] blur-[2px]" />
+        <div className="absolute left-[10%] top-[58%] h-[10%] w-[72%] rounded-full bg-[linear-gradient(90deg,rgba(96,243,255,0.18),rgba(255,255,255,0.28),rgba(255,190,239,0.12))] mix-blend-screen blur-[3px]" />
+        <div className="absolute inset-x-[14%] bottom-[12%] h-[28px] rounded-[999px] bg-[linear-gradient(90deg,rgba(255,255,255,0.22),rgba(255,255,255,0.08))] blur-[1px]" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="absolute inset-0 overflow-hidden rounded-[1.25rem]">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(255,255,255,0.2),transparent_48%),linear-gradient(135deg,rgba(255,255,255,0.08),transparent_38%)]" />
+      <div className="absolute left-[16%] bottom-[18%] h-[34%] w-[18%] rounded-[1.1rem] bg-[linear-gradient(180deg,rgba(255,255,255,0.86),rgba(247,229,215,0.86))] shadow-[0_16px_24px_rgba(0,0,0,0.16)]" />
+      <div className="absolute left-[34%] bottom-[14%] h-[42%] w-[18%] rounded-[1.1rem] bg-[linear-gradient(180deg,#ffebd2,#ffd09a)] shadow-[0_16px_24px_rgba(0,0,0,0.18)]" />
+      <div className="absolute right-[24%] top-[16%] h-[48%] w-[18%] rounded-[1.1rem] bg-[linear-gradient(180deg,#1c2b64,#5d7cff)] shadow-[0_16px_24px_rgba(0,0,0,0.18)]" />
+      <div className="absolute right-[9%] top-[32%] h-[18%] w-[18%] rounded-full bg-[radial-gradient(circle_at_35%_35%,#fff7d9_0%,#f6c96d_28%,#ec8d2f_68%,rgba(236,141,47,0)_72%)] shadow-[0_10px_25px_rgba(0,0,0,0.18)]" />
+      <div className="absolute inset-x-[20%] bottom-[11%] h-[12px] rounded-full bg-[linear-gradient(90deg,#fff1d3,#ffd592,#f7a44e)] opacity-95" />
+      <div className="absolute left-[50%] top-[30%] h-[40%] w-[12%] rounded-full bg-[linear-gradient(180deg,#f6efe6,#f2d8c0)] shadow-[0_10px_22px_rgba(0,0,0,0.14)]" />
+      <div className="absolute left-[58%] top-[24%] h-[12%] w-[22%] rotate-[-24deg] rounded-full bg-[linear-gradient(90deg,#f8ead8,#ffcc82)]" />
+    </div>
+  );
+}
+
+function HeroTileCard({ tile }: { tile: HeroTile }) {
+  return (
+    <article
+      className="group relative overflow-hidden rounded-[1.8rem] border border-white/50 shadow-[0_20px_55px_rgba(32,39,65,0.16)] transition-transform duration-300 hover:scale-[1.02]"
+      style={
+        {
+          background: tile.bg,
+          animation: `tileDrift 9s ease-in-out infinite`,
+          animationDelay: tile.delay,
+          ["--tile-rot" as string]: tile.motion,
+        } as React.CSSProperties
+      }
+    >
+      <div
+        className="absolute inset-0 opacity-55"
+        style={{
+          backgroundImage: `radial-gradient(circle at 18% 18%, rgba(255,255,255,0.35) 0 1.2px, transparent 1.4px), radial-gradient(circle at 72% 64%, rgba(255,255,255,0.2) 0 1px, transparent 1.3px), linear-gradient(135deg, rgba(255,255,255,0.16), transparent 42%, rgba(0,0,0,0.08))`,
+          backgroundSize: "22px 22px, 28px 28px, 100% 100%",
+        }}
+      />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.18),transparent_32%,rgba(0,0,0,0.08))]" />
+      <div className="relative flex aspect-square h-full min-h-[240px] flex-col p-4 md:p-5 text-white">
+        <div className="flex items-start justify-between gap-3 text-[0.65rem] font-semibold uppercase tracking-[0.38em] text-white/85">
+          <span>{tile.no}</span>
+          <span className="rounded-full border border-white/35 bg-white/12 px-2.5 py-1 backdrop-blur-sm">
+            {tile.label}
+          </span>
+        </div>
+        <div className="relative mt-4 flex-1">
+          <HeroTileArtwork kind={tile.kind} />
+        </div>
+        <div className="mt-4 space-y-1.5">
+          <h3 className="font-display text-2xl font-bold leading-none tracking-[-0.06em]">
+            {tile.title}
+          </h3>
+          <p className="max-w-[18rem] text-sm leading-relaxed text-white/82">
+            {tile.description}
+          </p>
+        </div>
+      </div>
+    </article>
   );
 }
 
@@ -117,7 +289,9 @@ function InteractiveGraph() {
 
       const current = stateRef.current;
       const parent = containerRef.current?.parentElement;
-      const rect = parent ? parent.getBoundingClientRect() : { width: 1200, height: 300 };
+      const rect = parent
+        ? parent.getBoundingClientRect()
+        : { width: 1200, height: 300 };
 
       let targetX = 0;
       let targetY = 0;
@@ -126,8 +300,10 @@ function InteractiveGraph() {
         targetY = current.mousePos.y;
       } else {
         // Slow organic floating orbit
-        targetX = (rect.width / 2) + Math.sin(current.time * 0.8) * (rect.width * 0.35);
-        targetY = (rect.height / 2) + Math.cos(current.time * 1.2) * (rect.height * 0.2);
+        targetX =
+          rect.width / 2 + Math.sin(current.time * 0.8) * (rect.width * 0.35);
+        targetY =
+          rect.height / 2 + Math.cos(current.time * 1.2) * (rect.height * 0.2);
       }
 
       setPos((prev) => {
@@ -173,7 +349,10 @@ function InteractiveGraph() {
   }, []);
 
   return (
-    <div ref={containerRef} className="absolute inset-x-0 top-0 bottom-[-100px] z-0 pointer-events-none overflow-hidden select-none">
+    <div
+      ref={containerRef}
+      className="absolute inset-x-0 top-0 bottom-[-100px] z-0 pointer-events-none overflow-hidden select-none"
+    >
       {/* High-lighted grid lines overlay */}
       <div
         className="absolute inset-0"
@@ -182,8 +361,8 @@ function InteractiveGraph() {
             linear-gradient(to right, color-mix(in oklab, var(--orange) 75%, transparent) 1px, transparent 1px),
             linear-gradient(to bottom, color-mix(in oklab, var(--orange) 75%, transparent) 1px, transparent 1px)
           `,
-          backgroundSize: '28px 28px',
-          animation: 'moveGrid 90s linear infinite',
+          backgroundSize: "28px 28px",
+          animation: "moveGrid 90s linear infinite",
           maskImage: `radial-gradient(circle 140px at ${pos.x}px ${pos.y}px, black 20%, transparent 100%)`,
           WebkitMaskImage: `radial-gradient(circle 140px at ${pos.x}px ${pos.y}px, black 20%, transparent 100%)`,
           opacity: 0.9,
@@ -198,7 +377,8 @@ const projects = [
     no: "01",
     title: "KainPo",
     tags: ["React Native", "Supabase", "Gemini"],
-    blurb: "A Mobile Application for Automated FEL- Based Filipino Meal Plan Optimization",
+    blurb:
+      "A Mobile Application for Automated FEL- Based Filipino Meal Plan Optimization",
     bg: "var(--orange)",
     image: imgKainPo,
   },
@@ -206,7 +386,8 @@ const projects = [
     no: "02",
     title: "Tilaok",
     tags: ["Next.Js", "Firebase", "SMS Gateway"],
-    blurb: "A hybrid digital communication platform bridging Filipino farmers and the Department of Agriculture (DA) via real-time mobile app and SMS channels. Won 1st Runner-up at Technovation Summit.",
+    blurb:
+      "A hybrid digital communication platform bridging Filipino farmers and the Department of Agriculture (DA) via real-time mobile app and SMS channels. Won 1st Runner-up at Technovation Summit.",
     bg: "var(--blue)",
     image: imgTilaok,
   },
@@ -214,7 +395,8 @@ const projects = [
     no: "03",
     title: "TarShare",
     tags: ["Next.Js", "Firebase", "Gemini", "Vertex AI"],
-    blurb: "An AI-powered civic platform empowering Filipinos to transform informal grievances into formal, actionable complaints. Built with Next.js and Firebase; utilized Gemini and Vertex AI.",
+    blurb:
+      "An AI-powered civic platform empowering Filipinos to transform informal grievances into formal, actionable complaints. Built with Next.js and Firebase; utilized Gemini and Vertex AI.",
     bg: "var(--coral)",
     image: imgTarShare,
   },
@@ -222,7 +404,8 @@ const projects = [
     no: "04",
     title: "Flexor",
     tags: ["Next.Js", "Gemini"],
-    blurb: "A hackathon project webapp that aims to track budgeting and user spending pattern.",
+    blurb:
+      "A hackathon project webapp that aims to track budgeting and user spending pattern.",
     bg: "var(--coral)",
     image: imgFlexor,
   },
@@ -230,7 +413,8 @@ const projects = [
     no: "05",
     title: "icSync",
     tags: ["Next.Js", "Firebase", "Shadcn"],
-    blurb: "An Alumni Tracker and Relations Management System for the Institute of Computer Science UPLB that aims to strengthen alumni relations.",
+    blurb:
+      "An Alumni Tracker and Relations Management System for the Institute of Computer Science UPLB that aims to strengthen alumni relations.",
     bg: "var(--coral)",
     image: imgIcSync,
   },
@@ -238,7 +422,8 @@ const projects = [
     no: "06",
     title: "UPOU E-Bulletin",
     tags: ["React Native", "Laravel"],
-    blurb: "A Block-based Rich Text Editor and Content Management System for UPOU Administration Staffs.",
+    blurb:
+      "A Block-based Rich Text Editor and Content Management System for UPOU Administration Staffs.",
     bg: "var(--coral)",
     image: imgUpou,
   },
@@ -265,7 +450,8 @@ const awards = [
   },
   {
     title: "University / College Scholar",
-    subtitle: "Consistent University Scholar — GWA: 1.667, University of the Philippines Los Baños",
+    subtitle:
+      "Consistent University Scholar — GWA: 1.667, University of the Philippines Los Baños",
     note: "",
     year: "2021–2026",
   },
@@ -278,7 +464,9 @@ const awards = [
 ];
 
 function Index() {
-  const [selectedProject, setSelectedProject] = useState<(typeof projects)[number] | null>(null);
+  const [selectedProject, setSelectedProject] = useState<
+    (typeof projects)[number] | null
+  >(null);
   const [showScroll, setShowScroll] = useState(false);
 
   useEffect(() => {
@@ -302,220 +490,409 @@ function Index() {
       {/* NAV */}
       <header className="px-6 md:px-12 p-3 m-2">
         <nav className="relative flex items-center justify-center py-4">
-
           {/* Centered Navigation */}
           <ul className="flex items-center gap-6 md:gap-10 text-base font-medium">
-            <li><a href="#about" className="hover:text-orange hover:bg-orange/15 transition px-4 py-1.5 rounded-full">About</a></li>
-            <li><a href="#work" className="hover:text-orange hover:bg-orange/15 transition px-4 py-1.5 rounded-full">Project</a></li>
-            <li><a href="#contact" className="hover:text-orange hover:bg-orange/15 transition px-4 py-1.5 rounded-full">Contact</a></li>
+            <li>
+              <a
+                href="#about"
+                className="hover:text-orange hover:bg-orange/15 transition px-4 py-1.5 rounded-full"
+              >
+                About
+              </a>
+            </li>
+            <li>
+              <a
+                href="#work"
+                className="hover:text-orange hover:bg-orange/15 transition px-4 py-1.5 rounded-full"
+              >
+                Project
+              </a>
+            </li>
+            <li>
+              <a
+                href="#contact"
+                className="hover:text-orange hover:bg-orange/15 transition px-4 py-1.5 rounded-full"
+              >
+                Contact
+              </a>
+            </li>
           </ul>
         </nav>
       </header>
 
       <main className="overflow-x-hidden">
-
-      {/* HERO */}
-      <section className="relative px-4 md:px-12 flex flex-col justify-center" style={{ minHeight: 'calc(90vh - 80px)' }}>
-        <div className="absolute inset-x-0 top-0 bottom-[-100px] grid-paper opacity-70 pointer-events-none" aria-hidden />
-        <InteractiveGraph />
-        <div className="relative max-w-5xl mx-auto text-center z-10">
-          <InteractiveTitle />
-          <SectionReveal delay={200}>
-            <div className="flex items-center justify-center gap-4 mt-8 flex-wrap">
-              <Link
-                to="/resume"
-                className="inline-block px-8 py-4 rounded-full border-2 border-transparent bg-orange text-cream font-semibold uppercase tracking-widest text-sm hover:translate-y-[-2px] transition"
-              >
-                Resume
-              </Link>
-              <a
-                href="#contact"
-                className="inline-block px-8 py-4 rounded-full border-2 border-ink text-ink font-semibold uppercase tracking-widest text-sm hover:bg-ink hover:text-cream hover:translate-y-[-2px] transition"
-              >
-                Contact Me
-              </a>
-            </div>
-          </SectionReveal>
-        </div>
-      </section>
-
-      {/* INTRO CARD */}
-      <section className="pb-12">
-        <div className="relative bg-blue text-cream overflow-hidden pt-8 md:pt-12 px-6 md:px-12 pb-0 md:pb-0 min-h-[480px] md:min-h-[600px] rounded-t-[50%_50px] md:rounded-t-[50%_100px] flex flex-col justify-end">
-          <div className="relative w-full max-w-7xl mx-auto grid md:grid-cols-2 gap-8 items-end">
-            <div className="pb-8 md:pb-10">
-              <SectionReveal>
-                <h2 className="leading-none">
-                  <img
-                    src={nameCard}
-                    alt="Ron Comia"
-                    className="w-full max-w-[500px] pt-20 md:max-w-[640px] h-auto object-contain"
-                  />
-                </h2>
-              </SectionReveal>
-              <SectionReveal delay={80}>
-                <p className="mt-2 text-cream font-bold text-2xl md:text-3xl leading-snug">
-                  <span className="bg-orange text-cream px-2 py-0.5 inline-block mr-2 rounded text-xl md:text-2xl">Hello, I'm Ron!</span>
-                  I design and build software that matters.
-                </p>
-              </SectionReveal>
-              <SectionReveal delay={150}>
-                <div className="mt-5 flex flex-col gap-1.5">
-                  <div className="text-cream/50 text-xs uppercase tracking-widest">Education</div>
-                  <div className="text-cream font-semibold text-lg">University of the Philippines – Los Baños</div>
-                  <div className="text-cream/55 text-base">BS Computer Science</div>
-                </div>
-              </SectionReveal>
-              <SectionReveal delay={220}>
-                <a href="#about" className="mt-7 inline-flex items-center gap-3 text-base font-bold tracking-tight text-cream hover:text-yellow transition-colors group">
-                  Get to know me more
-                  <svg className="w-8 h-3 text-cream group-hover:translate-x-1.5 transition-transform" viewBox="0 0 40 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="2" y1="8" x2="38" y2="8" />
-                    <polyline points="32 2 38 8 32 14" />
-                  </svg>
-                </a>
-              </SectionReveal>
-            </div>
-            <div className="hidden md:block absolute bottom-0 right-[-30px] md:right-[-60px] h-[360px] md:h-[520px] pointer-events-none">
-              <SectionReveal delay={100} className="h-full">
-                <img
-                  src={profile}
-                  alt="Ron Comia"
-                  width={768}
-                  height={2096}
-                  className="h-full w-auto object-contain object-bottom pointer-events-auto"
-                />
-              </SectionReveal>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FEATURED PROJECTS */}
-      <section id="work" className="px-6 md:px-12 pb-24">
-        <SectionReveal>
-          <div className="max-w-6xl">
-            <div className="flex items-end justify-between mb-10">
-              <h2 className="font-display font-bold text-orange text-5xl md:text-7xl leading-none tracking-[-0.12em]">
-                Fea<i>t</i>ured Pro<i>j</i>ects
-              </h2>
-            </div>
-          </div>
-        </SectionReveal>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 w-full">
-          {projects.map((p, idx) => (
-            <SectionReveal key={p.no} delay={idx * 60}>
-              <button
-                onClick={() => setSelectedProject(p)}
-                className="group text-left w-full bg-blue rounded-2xl overflow-hidden hover:scale-[1.02] active:scale-[0.99] transition-transform duration-300 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-orange"
-              >
-                <div className="relative overflow-hidden h-64" style={{ background: p.bg }}>
-                  <img
-                    src={p.image}
-                    alt={p.title}
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <span className="absolute top-3 left-3 font-display text-sm bg-ink/70 text-cream px-3 py-0.5 rounded-full backdrop-blur-sm">
-                    {p.no}
+        {/* HERO */}
+        <section className="relative px-4 md:px-8 pt-6 md:pt-10 pb-14 overflow-hidden">
+          <div
+            className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(79,116,242,0.12),transparent_34%),radial-gradient(circle_at_10%_90%,rgba(255,148,52,0.14),transparent_24%),radial-gradient(circle_at_90%_86%,rgba(215,125,223,0.12),transparent_28%)]"
+            aria-hidden
+          />
+          <div className="relative mx-auto max-w-7xl">
+            <div className="mb-6 flex items-start justify-between gap-4">
+              <div className="max-w-2xl">
+                <SectionReveal>
+                  <div className="flex items-center gap-3 text-[0.68rem] font-semibold uppercase tracking-[0.38em] text-ink/45">
+                    <span className="h-px w-10 bg-orange/45" />
+                    Art-focused portfolio hero
+                  </div>
+                </SectionReveal>
+              </div>
+              <SectionReveal delay={60} className="shrink-0">
+                <div className="flex flex-wrap items-center justify-end gap-2 md:gap-3 pt-2 text-[0.7rem] font-semibold uppercase tracking-[0.28em]">
+                  <span className="rounded-full border border-ink/25 bg-cream/70 px-3 py-1 text-ink/70 backdrop-blur-sm">
+                    Art Direction
+                  </span>
+                  <span className="rounded-full border border-blue/25 bg-blue px-3 py-1 text-cream">
+                    Portfolio
                   </span>
                 </div>
-                <div className="px-4 pt-3 pb-5">
-                  <div className="flex items-start justify-between gap-3 mb-2">
-                    <h3 className="text-cream font-bold text-lg leading-snug">{p.title}</h3>
-                    <div className="shrink-0 w-9 h-9 rounded-full border border-cream/20 flex items-center justify-center text-cream/50 group-hover:bg-orange group-hover:border-orange group-hover:text-cream transition-all duration-200">
-                      <ArrowUpRight className="w-4 h-4" />
+              </SectionReveal>
+            </div>
+
+            <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+              <div className="max-w-2xl">
+                <InteractiveTitle />
+                <SectionReveal delay={180}>
+                  <p className="mt-6 max-w-xl text-lg md:text-xl leading-relaxed text-ink/75">
+                    Super artsy. The work here blends color studies, structure,
+                    motion, and tactile surface into a single visual system.
+                  </p>
+                </SectionReveal>
+                <SectionReveal delay={260}>
+                  <div className="mt-8 flex flex-wrap gap-4">
+                    <Link
+                      to="/resume"
+                      className="inline-flex items-center justify-center rounded-full bg-orange px-8 py-4 text-sm font-semibold uppercase tracking-[0.28em] text-cream transition-transform hover:-translate-y-0.5"
+                    >
+                      Resume
+                    </Link>
+                    <a
+                      href="#contact"
+                      className="inline-flex items-center justify-center rounded-full border-2 border-ink px-8 py-4 text-sm font-semibold uppercase tracking-[0.28em] text-ink transition-transform hover:-translate-y-0.5 hover:bg-ink hover:text-cream"
+                    >
+                      Contact Me
+                    </a>
+                  </div>
+                </SectionReveal>
+              </div>
+
+              <div className="space-y-5">
+                <div className="grid grid-cols-12 gap-5">
+                  <div className="hidden lg:block lg:col-span-2" aria-hidden />
+                  <SectionReveal
+                    delay={120}
+                    className="col-span-12 md:col-span-8 lg:col-span-6 lg:col-start-5"
+                  >
+                    <HeroTileCard tile={heroTiles[0]} />
+                  </SectionReveal>
+                </div>
+
+                <div className="grid grid-cols-12 gap-5">
+                  <SectionReveal
+                    delay={180}
+                    className="col-span-12 sm:col-span-4"
+                  >
+                    <HeroTileCard tile={heroTiles[1]} />
+                  </SectionReveal>
+                  <SectionReveal
+                    delay={240}
+                    className="col-span-12 sm:col-span-4"
+                  >
+                    <HeroTileCard tile={heroTiles[2]} />
+                  </SectionReveal>
+                  <SectionReveal
+                    delay={300}
+                    className="col-span-12 sm:col-span-4"
+                  >
+                    <HeroTileCard tile={heroTiles[3]} />
+                  </SectionReveal>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* INTRO CARD */}
+        <section className="pb-12">
+          <div className="relative bg-blue text-cream overflow-hidden pt-8 md:pt-12 px-6 md:px-12 pb-0 md:pb-0 min-h-[480px] md:min-h-[600px] rounded-t-[50%_50px] md:rounded-t-[50%_100px] flex flex-col justify-end">
+            <div className="relative w-full max-w-7xl mx-auto grid md:grid-cols-2 gap-8 items-end">
+              <div className="pb-8 md:pb-10">
+                <SectionReveal>
+                  <h2 className="leading-none">
+                    <img
+                      src={nameCard}
+                      alt="Ron Comia"
+                      className="w-full max-w-[500px] pt-20 md:max-w-[640px] h-auto object-contain"
+                    />
+                  </h2>
+                </SectionReveal>
+                <SectionReveal delay={80}>
+                  <p className="mt-2 text-cream font-bold text-2xl md:text-3xl leading-snug">
+                    <span className="bg-orange text-cream px-2 py-0.5 inline-block mr-2 rounded text-xl md:text-2xl">
+                      Hello, I'm Ron!
+                    </span>
+                    I design and build software that matters.
+                  </p>
+                </SectionReveal>
+                <SectionReveal delay={150}>
+                  <div className="mt-5 flex flex-col gap-1.5">
+                    <div className="text-cream/50 text-xs uppercase tracking-widest">
+                      Education
+                    </div>
+                    <div className="text-cream font-semibold text-lg">
+                      University of the Philippines – Los Baños
+                    </div>
+                    <div className="text-cream/55 text-base">
+                      BS Computer Science
                     </div>
                   </div>
-                  <p className="text-cream/60 text-sm leading-relaxed mb-3 line-clamp-2">{p.blurb}</p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {p.tags.map((tag) => (
-                      <span key={tag} className="text-[10px] uppercase tracking-widest bg-cream/10 text-cream/70 px-2.5 py-0.5 rounded-full">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </button>
-            </SectionReveal>
-          ))}
-        </div>
-      </section>
-
-      {/* AWARDS & RECOGNITIONS */}
-      <section id="about" className="bg-orange text-cream py-24 px-6 md:px-12">
-        <div className="w-full">
-          <SectionReveal>
-            <h2 className="font-display font-bold text-6xl md:text-8xl mb-16 leading-none tracking-[-0.10em]">
-              A<i>w</i>ar<i>d</i>s &amp; Re<i>c</i>ogni<i>t</i>ions
-            </h2>
-          </SectionReveal>
-          <div>
-            {awards.map((a, i) => (
-              <SectionReveal key={i} delay={i * 80}>
-                <div className="flex items-start justify-between py-7 border-t border-cream/25 gap-8">
-                  <div>
-                    <div className="font-display font-bold text-xl md:text-2xl">{a.title}</div>
-                    <p className="text-base md:text-lg text-cream/70 mt-1 leading-relaxed">{a.subtitle}</p>
-                  </div>
-                  <div className="shrink-0 text-right">
-                    {a.note && (
-                      <span className="text-xs md:text-sm uppercase tracking-widest bg-cream/20 text-cream px-3.5 py-1 rounded-full inline-block mb-2 font-medium">
-                        {a.note}
-                      </span>
-                    )}
-                    <div className="text-cream/60 text-base md:text-lg font-medium">{a.year}</div>
-                  </div>
-                </div>
-              </SectionReveal>
-            ))}
-            <div className="border-t border-cream/25" />
+                </SectionReveal>
+                <SectionReveal delay={220}>
+                  <a
+                    href="#about"
+                    className="mt-7 inline-flex items-center gap-3 text-base font-bold tracking-tight text-cream hover:text-yellow transition-colors group"
+                  >
+                    Get to know me more
+                    <svg
+                      className="w-8 h-3 text-cream group-hover:translate-x-1.5 transition-transform"
+                      viewBox="0 0 40 16"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <line x1="2" y1="8" x2="38" y2="8" />
+                      <polyline points="32 2 38 8 32 14" />
+                    </svg>
+                  </a>
+                </SectionReveal>
+              </div>
+              <div className="hidden md:block absolute bottom-0 right-[-30px] md:right-[-60px] h-[360px] md:h-[520px] pointer-events-none">
+                <SectionReveal delay={100} className="h-full">
+                  <img
+                    src={profile}
+                    alt="Ron Comia"
+                    width={768}
+                    height={2096}
+                    className="h-full w-auto object-contain object-bottom pointer-events-auto"
+                  />
+                </SectionReveal>
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CONTACT */}
-      <footer id="contact" className="px-6 md:px-12 py-24">
-        <div className="w-full grid md:grid-cols-12 gap-12 md:gap-16 items-center">
-          <SectionReveal className="md:col-span-8">
-            <div className="relative rounded-3xl overflow-hidden border border-ink/10 shadow-xl bg-cream select-none">
-              <img
-                src={designBoard}
-                alt="Ron's Design Board"
-                className="w-full h-auto object-cover select-none pointer-events-none"
-                draggable="false"
-              />
-              <DraggableSticker src={sticker4} initialLeft={50.5} initialTop={23.5} width="20%" defaultRotation={4} delay="0s" alt="Caballero" />
-              <DraggableSticker src={sticker3} initialLeft={65.1} initialTop={33.3} width="15%" defaultRotation={-2} delay="1.5s" alt="Universal Since 1895" />
-              <DraggableSticker src={sticker5} initialLeft={90.1} initialTop={54.8} width="13%" defaultRotation={-5} delay="3.0s" alt="Skolar Para Sa Bayan" />
-              <DraggableSticker src={sticker1} initialLeft={54.8} initialTop={82.8} width="18%" defaultRotation={6} delay="4.5s" alt="Sunflower Girl" />
-              <DraggableSticker src={sticker2} initialLeft={69.6} initialTop={78.5} width="18%" defaultRotation={2} delay="6.0s" alt="Frog Boy" />
-              <DraggableSticker src={sticker6} initialLeft={75.8} initialTop={24.5} width="18%" defaultRotation={-6} delay="7.5s" alt="On Cue Sargo Club" />
+        {/* FEATURED PROJECTS */}
+        <section id="work" className="px-6 md:px-12 pb-24">
+          <SectionReveal>
+            <div className="max-w-6xl">
+              <div className="flex items-end justify-between mb-10">
+                <h2 className="font-display font-bold text-orange text-5xl md:text-7xl leading-none tracking-[-0.12em]">
+                  Fea<i>t</i>ured Pro<i>j</i>ects
+                </h2>
+              </div>
             </div>
           </SectionReveal>
-          <div className="md:col-span-4 flex flex-col justify-center">
-            <SectionReveal delay={100}>
-              <h2 className="font-display font-bold text-orange text-6xl md:text-8xl leading-[0.9] tracking-[-0.10em]">
-                Le<i>t</i>'s<br />Wor<i>k</i><br />To<i>g</i>ether<i>!</i>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 w-full">
+            {projects.map((p, idx) => (
+              <SectionReveal key={p.no} delay={idx * 60}>
+                <button
+                  onClick={() => setSelectedProject(p)}
+                  className="group text-left w-full bg-blue rounded-2xl overflow-hidden hover:scale-[1.02] active:scale-[0.99] transition-transform duration-300 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-orange"
+                >
+                  <div
+                    className="relative overflow-hidden h-64"
+                    style={{ background: p.bg }}
+                  >
+                    <img
+                      src={p.image}
+                      alt={p.title}
+                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <span className="absolute top-3 left-3 font-display text-sm bg-ink/70 text-cream px-3 py-0.5 rounded-full backdrop-blur-sm">
+                      {p.no}
+                    </span>
+                  </div>
+                  <div className="px-4 pt-3 pb-5">
+                    <div className="flex items-start justify-between gap-3 mb-2">
+                      <h3 className="text-cream font-bold text-lg leading-snug">
+                        {p.title}
+                      </h3>
+                      <div className="shrink-0 w-9 h-9 rounded-full border border-cream/20 flex items-center justify-center text-cream/50 group-hover:bg-orange group-hover:border-orange group-hover:text-cream transition-all duration-200">
+                        <ArrowUpRight className="w-4 h-4" />
+                      </div>
+                    </div>
+                    <p className="text-cream/60 text-sm leading-relaxed mb-3 line-clamp-2">
+                      {p.blurb}
+                    </p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {p.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="text-[10px] uppercase tracking-widest bg-cream/10 text-cream/70 px-2.5 py-0.5 rounded-full"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </button>
+              </SectionReveal>
+            ))}
+          </div>
+        </section>
+
+        {/* AWARDS & RECOGNITIONS */}
+        <section
+          id="about"
+          className="bg-orange text-cream py-24 px-6 md:px-12"
+        >
+          <div className="w-full">
+            <SectionReveal>
+              <h2 className="font-display font-bold text-6xl md:text-8xl mb-16 leading-none tracking-[-0.10em]">
+                A<i>w</i>ar<i>d</i>s &amp; Re<i>c</i>ogni<i>t</i>ions
               </h2>
             </SectionReveal>
-            <SectionReveal delay={180}>
-              <p className="mt-8 text-ink/70 max-w-sm">
-                Open to full-time engineering roles, technical collaborations, and research opportunities. Let's connect and discuss how we can work together.
-              </p>
-            </SectionReveal>
-            <SectionReveal delay={260}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-10">
-                <ContactLink label="LinkedIn" value="linkedin.com/in/rgcomia" href="https://linkedin.com/in/rgcomia" />
-                <ContactLink label="GitHub" value="github.com/denmt" href="https://github.com/denmt" />
-                <ContactLink label="Email" value="crondennis@gmail.com" href="mailto:crondennis@gmail.com" />
+            <div>
+              {awards.map((a, i) => (
+                <SectionReveal key={i} delay={i * 80}>
+                  <div className="flex items-start justify-between py-7 border-t border-cream/25 gap-8">
+                    <div>
+                      <div className="font-display font-bold text-xl md:text-2xl">
+                        {a.title}
+                      </div>
+                      <p className="text-base md:text-lg text-cream/70 mt-1 leading-relaxed">
+                        {a.subtitle}
+                      </p>
+                    </div>
+                    <div className="shrink-0 text-right">
+                      {a.note && (
+                        <span className="text-xs md:text-sm uppercase tracking-widest bg-cream/20 text-cream px-3.5 py-1 rounded-full inline-block mb-2 font-medium">
+                          {a.note}
+                        </span>
+                      )}
+                      <div className="text-cream/60 text-base md:text-lg font-medium">
+                        {a.year}
+                      </div>
+                    </div>
+                  </div>
+                </SectionReveal>
+              ))}
+              <div className="border-t border-cream/25" />
+            </div>
+          </div>
+        </section>
+
+        {/* CONTACT */}
+        <footer id="contact" className="px-6 md:px-12 py-24">
+          <div className="w-full grid md:grid-cols-12 gap-12 md:gap-16 items-center">
+            <SectionReveal className="md:col-span-8">
+              <div className="relative rounded-3xl overflow-hidden border border-ink/10 shadow-xl bg-cream select-none">
+                <img
+                  src={designBoard}
+                  alt="Ron's Design Board"
+                  className="w-full h-auto object-cover select-none pointer-events-none"
+                  draggable="false"
+                />
+                <DraggableSticker
+                  src={sticker4}
+                  initialLeft={50.5}
+                  initialTop={23.5}
+                  width="20%"
+                  defaultRotation={4}
+                  delay="0s"
+                  alt="Caballero"
+                />
+                <DraggableSticker
+                  src={sticker3}
+                  initialLeft={65.1}
+                  initialTop={33.3}
+                  width="15%"
+                  defaultRotation={-2}
+                  delay="1.5s"
+                  alt="Universal Since 1895"
+                />
+                <DraggableSticker
+                  src={sticker5}
+                  initialLeft={90.1}
+                  initialTop={54.8}
+                  width="13%"
+                  defaultRotation={-5}
+                  delay="3.0s"
+                  alt="Skolar Para Sa Bayan"
+                />
+                <DraggableSticker
+                  src={sticker1}
+                  initialLeft={54.8}
+                  initialTop={82.8}
+                  width="18%"
+                  defaultRotation={6}
+                  delay="4.5s"
+                  alt="Sunflower Girl"
+                />
+                <DraggableSticker
+                  src={sticker2}
+                  initialLeft={69.6}
+                  initialTop={78.5}
+                  width="18%"
+                  defaultRotation={2}
+                  delay="6.0s"
+                  alt="Frog Boy"
+                />
+                <DraggableSticker
+                  src={sticker6}
+                  initialLeft={75.8}
+                  initialTop={24.5}
+                  width="18%"
+                  defaultRotation={-6}
+                  delay="7.5s"
+                  alt="On Cue Sargo Club"
+                />
               </div>
             </SectionReveal>
+            <div className="md:col-span-4 flex flex-col justify-center">
+              <SectionReveal delay={100}>
+                <h2 className="font-display font-bold text-orange text-6xl md:text-8xl leading-[0.9] tracking-[-0.10em]">
+                  Le<i>t</i>'s
+                  <br />
+                  Wor<i>k</i>
+                  <br />
+                  To<i>g</i>ether<i>!</i>
+                </h2>
+              </SectionReveal>
+              <SectionReveal delay={180}>
+                <p className="mt-8 text-ink/70 max-w-sm">
+                  Open to full-time engineering roles, technical collaborations,
+                  and research opportunities. Let's connect and discuss how we
+                  can work together.
+                </p>
+              </SectionReveal>
+              <SectionReveal delay={260}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-10">
+                  <ContactLink
+                    label="LinkedIn"
+                    value="linkedin.com/in/rgcomia"
+                    href="https://linkedin.com/in/rgcomia"
+                  />
+                  <ContactLink
+                    label="GitHub"
+                    value="github.com/denmt"
+                    href="https://github.com/denmt"
+                  />
+                  <ContactLink
+                    label="Email"
+                    value="crondennis@gmail.com"
+                    href="mailto:crondennis@gmail.com"
+                  />
+                </div>
+              </SectionReveal>
+            </div>
           </div>
-        </div>
-        <div className="w-full mt-20 pt-6 border-t border-ink/15 flex flex-wrap justify-between text-xs uppercase tracking-widest text-ink/60">
-          <span>© 2026 Ron Dennis Comia</span>
-        </div>
-      </footer>
+          <div className="w-full mt-20 pt-6 border-t border-ink/15 flex flex-wrap justify-between text-xs uppercase tracking-widest text-ink/60">
+            <span>© 2026 Ron Dennis Comia</span>
+          </div>
+        </footer>
       </main>
       {showScroll && (
         <button
@@ -527,7 +904,10 @@ function Index() {
         </button>
       )}
       {selectedProject && (
-        <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+        <ProjectModal
+          project={selectedProject}
+          onClose={() => setSelectedProject(null)}
+        />
       )}
     </div>
   );
@@ -578,8 +958,14 @@ function DraggableSticker({
       const deltaXPercent = (deltaX / rect.width) * 100;
       const deltaYPercent = (deltaY / rect.height) * 100;
 
-      const newX = Math.max(0, Math.min(100, positionStartRef.current.x + deltaXPercent));
-      const newY = Math.max(0, Math.min(100, positionStartRef.current.y + deltaYPercent));
+      const newX = Math.max(
+        0,
+        Math.min(100, positionStartRef.current.x + deltaXPercent),
+      );
+      const newY = Math.max(
+        0,
+        Math.min(100, positionStartRef.current.y + deltaYPercent),
+      );
 
       setPosition({ x: newX, y: newY });
     };
@@ -618,8 +1004,14 @@ function DraggableSticker({
       const deltaXPercent = (deltaX / rect.width) * 100;
       const deltaYPercent = (deltaY / rect.height) * 100;
 
-      const newX = Math.max(0, Math.min(100, positionStartRef.current.x + deltaXPercent));
-      const newY = Math.max(0, Math.min(100, positionStartRef.current.y + deltaYPercent));
+      const newX = Math.max(
+        0,
+        Math.min(100, positionStartRef.current.x + deltaXPercent),
+      );
+      const newY = Math.max(
+        0,
+        Math.min(100, positionStartRef.current.y + deltaYPercent),
+      );
 
       setPosition({ x: newX, y: newY });
     };
@@ -639,29 +1031,36 @@ function DraggableSticker({
   return (
     <div
       ref={stickerRef}
-      style={{
-        position: "absolute",
-        left: `${position.x}%`,
-        top: `${position.y}%`,
-        width: width,
-        cursor: isDragging ? "grabbing" : "grab",
-        userSelect: "none",
-        zIndex: isDragging ? 50 : 20,
-        transform: isDragging
-          ? `translate(-50%, -50%) scale(1.15) rotate(${defaultRotation + 6}deg)`
-          : isHovered
-            ? `translate(-50%, -50%) scale(1.08) rotate(${defaultRotation - 3}deg)`
-            : undefined,
-        filter: isDragging
-          ? "drop-shadow(0 25px 15px rgba(0,0,0,0.35))"
-          : isHovered
-            ? "drop-shadow(0 15px 10px rgba(0,0,0,0.25))"
-            : "drop-shadow(0 4px 6px rgba(0,0,0,0.15))",
-        transition: isDragging ? "none" : "transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s ease",
-        animation: isDragging || isHovered ? "none" : "stickerWiggleInvite 10s ease-in-out infinite",
-        animationDelay: delay,
-        "--rot": `${defaultRotation}deg`,
-      } as React.CSSProperties}
+      style={
+        {
+          position: "absolute",
+          left: `${position.x}%`,
+          top: `${position.y}%`,
+          width: width,
+          cursor: isDragging ? "grabbing" : "grab",
+          userSelect: "none",
+          zIndex: isDragging ? 50 : 20,
+          transform: isDragging
+            ? `translate(-50%, -50%) scale(1.15) rotate(${defaultRotation + 6}deg)`
+            : isHovered
+              ? `translate(-50%, -50%) scale(1.08) rotate(${defaultRotation - 3}deg)`
+              : undefined,
+          filter: isDragging
+            ? "drop-shadow(0 25px 15px rgba(0,0,0,0.35))"
+            : isHovered
+              ? "drop-shadow(0 15px 10px rgba(0,0,0,0.25))"
+              : "drop-shadow(0 4px 6px rgba(0,0,0,0.15))",
+          transition: isDragging
+            ? "none"
+            : "transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s ease",
+          animation:
+            isDragging || isHovered
+              ? "none"
+              : "stickerWiggleInvite 10s ease-in-out infinite",
+          animationDelay: delay,
+          "--rot": `${defaultRotation}deg`,
+        } as React.CSSProperties
+      }
       onMouseDown={handleMouseDown}
       onTouchStart={handleTouchStart}
       onMouseEnter={() => setIsHovered(true)}
@@ -678,10 +1077,20 @@ function DraggableSticker({
   );
 }
 
-function ContactLink({ label, value, href }: { label: string; value: string; href: string }) {
+function ContactLink({
+  label,
+  value,
+  href,
+}: {
+  label: string;
+  value: string;
+  href: string;
+}) {
   return (
     <a href={href} className="group block">
-      <div className="font-display font-bold text-orange text-2xl mb-1">{label}</div>
+      <div className="font-display font-bold text-orange text-2xl mb-1">
+        {label}
+      </div>
       <div className="text-sm text-ink/70 group-hover:text-ink underline decoration-orange/40 underline-offset-4">
         {value}
       </div>
@@ -728,7 +1137,7 @@ function ProjectModal({
         {/* Project Header Image */}
         <div
           className="rounded-t-3xl w-full h-48 md:h-[300px] relative overflow-hidden"
-          style={{ background: 'var(--blue)' }}
+          style={{ background: "var(--blue)" }}
         >
           <div className="absolute inset-0 grid-paper opacity-20" />
           {project.image ? (
@@ -758,9 +1167,7 @@ function ProjectModal({
           <div className="flex items-center justify-between mb-6">
             {/* App Logo Placeholder */}
             <div className="flex items-center gap-3">
-              <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center font-display font-bold text-xl text-cream shadow-md bg-blue"
-              >
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center font-display font-bold text-xl text-cream shadow-md bg-blue">
                 {project.title.substring(0, 2)}
               </div>
               <span className="font-display font-semibold text-lg text-ink/65 uppercase tracking-wider">
@@ -788,7 +1195,9 @@ function ProjectModal({
               </span>
             ))}
           </div>
-          <p className="mt-6 text-ink/70 leading-relaxed text-lg">{project.blurb}</p>
+          <p className="mt-6 text-ink/70 leading-relaxed text-lg">
+            {project.blurb}
+          </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a
               href={`mailto:crondennis@gmail.com?subject=Request%20Demo%20for%20${encodeURIComponent(project.title)}&body=Hi%20Ron,%0D%0A%0D%0AI%20would%20like%20to%20request%20a%20demo%20for%20the%20project:%20${encodeURIComponent(project.title)}.%0D%0A%0D%0AThanks!`}

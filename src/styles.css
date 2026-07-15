@@ -45,20 +45,33 @@
 }
 
 @layer base {
-  * { border-color: var(--color-border); }
+  * {
+    border-color: var(--color-border);
+  }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
   }
-  ::selection { background: var(--orange); color: var(--cream); }
+  ::selection {
+    background: var(--orange);
+    color: var(--cream);
+  }
 }
 
 @utility grid-paper {
   background-image:
-    linear-gradient(to right, color-mix(in oklab, var(--orange) 18%, transparent) 1px, transparent 1px),
-    linear-gradient(to bottom, color-mix(in oklab, var(--orange) 18%, transparent) 1px, transparent 1px);
+    linear-gradient(
+      to right,
+      color-mix(in oklab, var(--orange) 18%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--orange) 18%, transparent) 1px,
+      transparent 1px
+    );
   background-size: 28px 28px;
   animation: moveGrid 90s linear infinite;
 }
@@ -78,7 +91,10 @@
 }
 
 @utility marker-underline {
-  background-image: linear-gradient(transparent 62%, color-mix(in oklab, var(--yellow) 90%, transparent) 62%);
+  background-image: linear-gradient(
+    transparent 62%,
+    color-mix(in oklab, var(--yellow) 90%, transparent) 62%
+  );
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
@@ -97,17 +113,22 @@
 }
 
 @keyframes stickerWiggleInvite {
-  0%, 90%, 100% {
+  0%,
+  90%,
+  100% {
     transform: translate(-50%, -50%) scale(1) rotate(var(--rot, 0deg));
   }
   92% {
-    transform: translate(-50%, -53%) scale(1.04) rotate(calc(var(--rot, 0deg) - 4deg));
+    transform: translate(-50%, -53%) scale(1.04)
+      rotate(calc(var(--rot, 0deg) - 4deg));
   }
   95% {
-    transform: translate(-50%, -53%) scale(1.04) rotate(calc(var(--rot, 0deg) + 4deg));
+    transform: translate(-50%, -53%) scale(1.04)
+      rotate(calc(var(--rot, 0deg) + 4deg));
   }
   97% {
-    transform: translate(-50%, -50%) scale(1.01) rotate(calc(var(--rot, 0deg) - 2deg));
+    transform: translate(-50%, -50%) scale(1.01)
+      rotate(calc(var(--rot, 0deg) - 2deg));
   }
 }
 
@@ -122,24 +143,76 @@
   }
 }
 
+@keyframes tileDrift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(var(--tile-rot, 0deg));
+  }
+  25% {
+    transform: translate3d(0, -10px, 0)
+      rotate(calc(var(--tile-rot, 0deg) + 0.8deg));
+  }
+  50% {
+    transform: translate3d(7px, -4px, 0)
+      rotate(calc(var(--tile-rot, 0deg) - 0.7deg));
+  }
+  75% {
+    transform: translate3d(-6px, 7px, 0)
+      rotate(calc(var(--tile-rot, 0deg) + 0.5deg));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* ── Loading screen ─────────────────────────────── */
 @keyframes logoReveal {
-  0%   { opacity: 0; transform: scale(0.7) translateY(16px); }
-  60%  { opacity: 1; transform: scale(1.04) translateY(0); }
-  100% { opacity: 1; transform: scale(1) translateY(0); }
+  0% {
+    opacity: 0;
+    transform: scale(0.7) translateY(16px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.04) translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 @keyframes loaderScan {
-  0%   { transform: translateX(-100%); }
-  100% { transform: translateX(400%); }
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(400%);
+  }
 }
 
 @keyframes loaderSlideUp {
-  0%   { transform: translateY(0); }
-  100% { transform: translateY(-100%); }
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
 }
 
 @keyframes loaderFadeOut {
-  0%   { opacity: 1; }
-  100% { opacity: 0; pointer-events: none; }
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    pointer-events: none;
+  }
 }
