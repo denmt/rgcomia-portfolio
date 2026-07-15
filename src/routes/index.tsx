@@ -57,9 +57,7 @@ function SectionReveal({
       className={className}
       style={{
         opacity: visible ? 1 : 0,
-        transform: visible
-          ? "translateY(0) scale(1)"
-          : "translateY(48px) scale(0.98)",
+        transform: visible ? "translateY(0) scale(1)" : "translateY(48px) scale(0.98)",
         transition: `opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms, transform 0.85s cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms`,
       }}
     >
@@ -101,170 +99,129 @@ function InteractiveTitle() {
   );
 }
 
-type HeroTileKind = "sunset" | "composition" | "fluid" | "form";
-
 type HeroTile = {
-  no: string;
-  title: string;
-  description: string;
-  kind: HeroTileKind;
   bg: string;
-  accent: string;
-  label: string;
-  motion: string;
-  delay: string;
+  variant: "blueSplit" | "greenSplit" | "purpleSplit" | "orangeDots";
 };
 
 const heroTiles: HeroTile[] = [
   {
-    no: "01",
-    title: "Color Theory",
-    description:
-      "A stylized geometric sunset built from warm-to-cool layers and sharp, graphic light.",
-    kind: "sunset",
-    bg: "linear-gradient(135deg, #4c74f2 0%, #4d63e8 52%, #3651d7 100%)",
-    accent: "#ffcc88",
-    label: "Blue Study",
-    motion: "-3deg",
-    delay: "0s",
+    bg: "#4d65f3",
+    variant: "blueSplit",
   },
   {
-    no: "02",
-    title: "Composition",
-    description:
-      "Interlocking bands and arcs that feel locked into place like a structured visual puzzle.",
-    kind: "composition",
-    bg: "linear-gradient(135deg, #4f9d72 0%, #4a8a67 48%, #3c7a5b 100%)",
-    accent: "#ffca4b",
-    label: "Green System",
-    motion: "2deg",
-    delay: "1.1s",
+    bg: "#f9e7cb",
+    variant: "greenSplit",
   },
   {
-    no: "03",
-    title: "Fluid Art",
-    description:
-      "A watercolor swatch with soft blooms, pooled pigment, and translucent paper texture.",
-    kind: "fluid",
-    bg: "linear-gradient(135deg, #d77ddf 0%, #d06ed8 48%, #b45bd0 100%)",
-    accent: "#69d4ff",
-    label: "Pink Wash",
-    motion: "-1.5deg",
-    delay: "2.2s",
+    bg: "#f9e7cb",
+    variant: "purpleSplit",
   },
   {
-    no: "04",
-    title: "Form & Space",
-    description:
-      "Simple geometric sculptures arranged to balance mass, void, and directional light.",
-    kind: "form",
-    bg: "linear-gradient(135deg, #ff9334 0%, #ff8624 46%, #f26f12 100%)",
-    accent: "#f6e9d6",
-    label: "Orange Volume",
-    motion: "2.5deg",
-    delay: "3.3s",
+    bg: "#ff8a21",
+    variant: "orangeDots",
   },
 ];
 
-function HeroTileArtwork({ kind }: { kind: HeroTileKind }) {
-  if (kind === "sunset") {
+function HeroTileArtwork({ variant }: { variant: HeroTile["variant"] }) {
+  if (variant === "blueSplit") {
     return (
-      <div className="absolute inset-0 overflow-hidden rounded-[1.25rem]">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(255,255,255,0.22),transparent_42%),linear-gradient(180deg,rgba(0,0,0,0.08),transparent_55%)]" />
-        <div className="absolute left-1/2 top-[19%] h-[42%] w-[42%] -translate-x-1/2 rounded-full bg-[radial-gradient(circle_at_40%_40%,#ffe9b0_0%,#ffd06e_36%,#ff9f4f_68%,#ff7a3b_100%)] shadow-[0_18px_45px_rgba(0,0,0,0.22)]" />
-        <div className="absolute left-[16%] top-[34%] h-[12%] w-[68%] rotate-[-14deg] rounded-full bg-[linear-gradient(90deg,rgba(17,24,39,0.86),rgba(17,24,39,0.18))]" />
-        <div className="absolute left-[22%] top-[42%] h-[14%] w-[54%] rotate-[18deg] rounded-full bg-[linear-gradient(90deg,rgba(255,255,255,0.78),rgba(255,255,255,0.04))] mix-blend-screen" />
-        <div className="absolute left-[12%] top-[50%] h-[9%] w-[50%] rotate-[-8deg] rounded-full bg-[linear-gradient(90deg,rgba(48,38,141,0.88),rgba(73,97,255,0.88))]" />
-        <div className="absolute left-[21%] top-[61%] h-[10%] w-[46%] rotate-[26deg] rounded-full bg-[linear-gradient(90deg,#2d4abf,#7da5ff)]" />
-        <div className="absolute left-[33%] top-[71%] h-[9%] w-[39%] rotate-[-34deg] rounded-full bg-[linear-gradient(90deg,#ff9e4a,#ffec95)] opacity-85" />
-        <div className="absolute left-[13%] bottom-[14%] h-[14%] w-[74%] rotate-[-22deg] rounded-full bg-[linear-gradient(90deg,rgba(255,255,255,0.12),rgba(255,255,255,0.02))] blur-[1px]" />
-        <div className="absolute inset-x-[18%] bottom-[12%] h-[10px] rounded-full bg-white/35 blur-[0.5px]" />
-      </div>
+      <svg
+        viewBox="0 0 100 100"
+        className="absolute inset-0 h-full w-full"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <rect width="100" height="100" fill="#4d65f3" />
+        <circle className="hero-flow hero-flow-slower" cx="4" cy="4" r="47" fill="#ef6a11" />
+        <circle
+          className="hero-flow hero-flow-reverse hero-flow-delay-1"
+          cx="76"
+          cy="24"
+          r="22"
+          fill="#f9e7cb"
+        />
+        <circle className="hero-flow hero-flow-delay-2" cx="24" cy="76" r="22" fill="#f9e7cb" />
+        <circle
+          className="hero-flow hero-flow-slower hero-flow-reverse hero-flow-delay-3"
+          cx="96"
+          cy="96"
+          r="47"
+          fill="#ef6a11"
+        />
+      </svg>
     );
   }
 
-  if (kind === "composition") {
+  if (variant === "greenSplit") {
     return (
-      <div className="absolute inset-0 overflow-hidden rounded-[1.25rem]">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.16),transparent_56%),linear-gradient(135deg,rgba(18,36,25,0.16),transparent_40%)]" />
-        <div className="absolute left-[16%] top-[17%] h-[58%] w-[18%] rotate-[-26deg] rounded-[999px] bg-[linear-gradient(180deg,#ffd870_0%,#f0c04f_28%,#f07b31_72%,#8f2f46_100%)] shadow-[0_10px_28px_rgba(0,0,0,0.22)]" />
-        <div className="absolute left-[30%] top-[22%] h-[54%] w-[16%] rotate-[22deg] rounded-[999px] bg-[linear-gradient(180deg,#1b3b7e_0%,#1b7bd4_40%,#9fdbff_100%)] shadow-[0_10px_28px_rgba(0,0,0,0.18)]" />
-        <div className="absolute left-[44%] top-[18%] h-[12%] w-[42%] rotate-[13deg] rounded-full bg-[linear-gradient(90deg,rgba(248,248,255,0.95),rgba(248,248,255,0.18))]" />
-        <div className="absolute left-[18%] top-[42%] h-[11%] w-[58%] rotate-[-9deg] rounded-full bg-[linear-gradient(90deg,#f4f0d7,#e8c86f,#c77751)] opacity-95" />
-        <div className="absolute left-[32%] top-[53%] h-[10%] w-[40%] rotate-[28deg] rounded-full bg-[linear-gradient(90deg,#0f1e48,#1f2f76,#2841ad)] shadow-[0_8px_18px_rgba(0,0,0,0.18)]" />
-        <div className="absolute inset-x-[18%] bottom-[18%] h-[12px] rounded-full bg-[linear-gradient(90deg,#e9d3ff,#bb6ef0,#7fd3ff)]" />
-        <div className="absolute left-[58%] top-[62%] h-[16%] w-[18%] rounded-[1rem] border border-white/25 bg-white/12 backdrop-blur-[1px]" />
-      </div>
+      <svg
+        viewBox="0 0 100 100"
+        className="absolute inset-0 h-full w-full"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <rect width="100" height="100" fill="#f9e7cb" />
+        <polygon className="hero-flow hero-flow-slower" points="0,0 50,50 0,100" fill="#4e9a70" />
+        <polygon
+          className="hero-flow hero-flow-reverse hero-flow-delay-2"
+          points="100,0 50,50 100,100"
+          fill="#4e9a70"
+        />
+      </svg>
     );
   }
 
-  if (kind === "fluid") {
+  if (variant === "purpleSplit") {
     return (
-      <div className="absolute inset-0 overflow-hidden rounded-[1.25rem]">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_32%,rgba(255,255,255,0.34),transparent_32%),radial-gradient(circle_at_65%_68%,rgba(120,235,255,0.26),transparent_30%),linear-gradient(180deg,rgba(255,255,255,0.16),transparent_55%)]" />
-        <div className="absolute left-[14%] top-[18%] h-[52%] w-[52%] rounded-full bg-[radial-gradient(circle_at_35%_30%,rgba(255,255,255,0.9),rgba(255,255,255,0.1) 30%,rgba(109,234,255,0.16) 58%,rgba(0,0,0,0) 70%)] blur-[1px]" />
-        <div className="absolute left-[32%] top-[28%] h-[30%] w-[30%] rounded-full bg-[radial-gradient(circle_at_30%_30%,#fef6ff_0%,#ffcfef_22%,#f29adf_54%,rgba(242,154,223,0)_72%)] mix-blend-screen blur-[1px]" />
-        <div className="absolute right-[15%] top-[18%] h-[44%] w-[30%] rounded-[40%_60%_50%_50%/38%_52%_48%_62%] bg-[linear-gradient(145deg,rgba(255,255,255,0.88),rgba(255,255,255,0.12))] opacity-95 blur-[0.4px]" />
-        <div className="absolute left-[20%] bottom-[14%] h-[20%] w-[60%] rounded-[45%] bg-[linear-gradient(90deg,rgba(255,255,255,0.26),rgba(255,255,255,0.02))] blur-[2px]" />
-        <div className="absolute left-[10%] top-[58%] h-[10%] w-[72%] rounded-full bg-[linear-gradient(90deg,rgba(96,243,255,0.18),rgba(255,255,255,0.28),rgba(255,190,239,0.12))] mix-blend-screen blur-[3px]" />
-        <div className="absolute inset-x-[14%] bottom-[12%] h-[28px] rounded-[999px] bg-[linear-gradient(90deg,rgba(255,255,255,0.22),rgba(255,255,255,0.08))] blur-[1px]" />
-      </div>
+      <svg
+        viewBox="0 0 100 100"
+        className="absolute inset-0 h-full w-full"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <rect width="100" height="100" fill="#f9e7cb" />
+        <polygon className="hero-flow hero-flow-slower" points="0,0 50,50 100,0" fill="#c86fda" />
+        <polygon
+          className="hero-flow hero-flow-reverse hero-flow-delay-2"
+          points="0,100 50,50 100,100"
+          fill="#c86fda"
+        />
+      </svg>
     );
   }
 
   return (
-    <div className="absolute inset-0 overflow-hidden rounded-[1.25rem]">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(255,255,255,0.2),transparent_48%),linear-gradient(135deg,rgba(255,255,255,0.08),transparent_38%)]" />
-      <div className="absolute left-[16%] bottom-[18%] h-[34%] w-[18%] rounded-[1.1rem] bg-[linear-gradient(180deg,rgba(255,255,255,0.86),rgba(247,229,215,0.86))] shadow-[0_16px_24px_rgba(0,0,0,0.16)]" />
-      <div className="absolute left-[34%] bottom-[14%] h-[42%] w-[18%] rounded-[1.1rem] bg-[linear-gradient(180deg,#ffebd2,#ffd09a)] shadow-[0_16px_24px_rgba(0,0,0,0.18)]" />
-      <div className="absolute right-[24%] top-[16%] h-[48%] w-[18%] rounded-[1.1rem] bg-[linear-gradient(180deg,#1c2b64,#5d7cff)] shadow-[0_16px_24px_rgba(0,0,0,0.18)]" />
-      <div className="absolute right-[9%] top-[32%] h-[18%] w-[18%] rounded-full bg-[radial-gradient(circle_at_35%_35%,#fff7d9_0%,#f6c96d_28%,#ec8d2f_68%,rgba(236,141,47,0)_72%)] shadow-[0_10px_25px_rgba(0,0,0,0.18)]" />
-      <div className="absolute inset-x-[20%] bottom-[11%] h-[12px] rounded-full bg-[linear-gradient(90deg,#fff1d3,#ffd592,#f7a44e)] opacity-95" />
-      <div className="absolute left-[50%] top-[30%] h-[40%] w-[12%] rounded-full bg-[linear-gradient(180deg,#f6efe6,#f2d8c0)] shadow-[0_10px_22px_rgba(0,0,0,0.14)]" />
-      <div className="absolute left-[58%] top-[24%] h-[12%] w-[22%] rotate-[-24deg] rounded-full bg-[linear-gradient(90deg,#f8ead8,#ffcc82)]" />
-    </div>
+    <svg
+      viewBox="0 0 100 100"
+      className="absolute inset-0 h-full w-full"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <rect width="100" height="100" fill="#ff8a21" />
+      <g fill="#f9e7cb">
+        <circle className="hero-flow hero-flow-delay-1" cx="18" cy="18" r="10" />
+        <circle className="hero-flow hero-flow-reverse hero-flow-delay-2" cx="50" cy="18" r="10" />
+        <circle className="hero-flow hero-flow-delay-3" cx="82" cy="18" r="10" />
+        <circle className="hero-flow hero-flow-reverse hero-flow-delay-4" cx="18" cy="50" r="10" />
+        <circle className="hero-flow hero-flow-slower" cx="50" cy="50" r="10" />
+        <circle className="hero-flow hero-flow-reverse hero-flow-delay-1" cx="82" cy="50" r="10" />
+        <circle className="hero-flow hero-flow-delay-2" cx="18" cy="82" r="10" />
+        <circle className="hero-flow hero-flow-reverse hero-flow-delay-3" cx="50" cy="82" r="10" />
+        <circle className="hero-flow hero-flow-delay-4" cx="82" cy="82" r="10" />
+      </g>
+    </svg>
   );
 }
 
 function HeroTileCard({ tile }: { tile: HeroTile }) {
   return (
     <article
-      className="group relative overflow-hidden rounded-[1.8rem] border border-white/50 shadow-[0_20px_55px_rgba(32,39,65,0.16)] transition-transform duration-300 hover:scale-[1.02]"
-      style={
-        {
-          background: tile.bg,
-          animation: `tileDrift 9s ease-in-out infinite`,
-          animationDelay: tile.delay,
-          ["--tile-rot" as string]: tile.motion,
-        } as React.CSSProperties
-      }
+      className="relative overflow-hidden rounded-[1.85rem] shadow-[0_10px_26px_rgba(24,31,80,0.08)]"
+      style={{ background: tile.bg }}
     >
-      <div
-        className="absolute inset-0 opacity-55"
-        style={{
-          backgroundImage: `radial-gradient(circle at 18% 18%, rgba(255,255,255,0.35) 0 1.2px, transparent 1.4px), radial-gradient(circle at 72% 64%, rgba(255,255,255,0.2) 0 1px, transparent 1.3px), linear-gradient(135deg, rgba(255,255,255,0.16), transparent 42%, rgba(0,0,0,0.08))`,
-          backgroundSize: "22px 22px, 28px 28px, 100% 100%",
-        }}
-      />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.18),transparent_32%,rgba(0,0,0,0.08))]" />
-      <div className="relative flex aspect-square h-full min-h-[240px] flex-col p-4 md:p-5 text-white">
-        <div className="flex items-start justify-between gap-3 text-[0.65rem] font-semibold uppercase tracking-[0.38em] text-white/85">
-          <span>{tile.no}</span>
-          <span className="rounded-full border border-white/35 bg-white/12 px-2.5 py-1 backdrop-blur-sm">
-            {tile.label}
-          </span>
-        </div>
-        <div className="relative mt-4 flex-1">
-          <HeroTileArtwork kind={tile.kind} />
-        </div>
-        <div className="mt-4 space-y-1.5">
-          <h3 className="font-display text-2xl font-bold leading-none tracking-[-0.06em]">
-            {tile.title}
-          </h3>
-          <p className="max-w-[18rem] text-sm leading-relaxed text-white/82">
-            {tile.description}
-          </p>
-        </div>
+      <div className="relative aspect-square min-h-[170px] w-full">
+        <HeroTileArtwork variant={tile.variant} />
       </div>
     </article>
   );
@@ -289,9 +246,7 @@ function InteractiveGraph() {
 
       const current = stateRef.current;
       const parent = containerRef.current?.parentElement;
-      const rect = parent
-        ? parent.getBoundingClientRect()
-        : { width: 1200, height: 300 };
+      const rect = parent ? parent.getBoundingClientRect() : { width: 1200, height: 300 };
 
       let targetX = 0;
       let targetY = 0;
@@ -300,10 +255,8 @@ function InteractiveGraph() {
         targetY = current.mousePos.y;
       } else {
         // Slow organic floating orbit
-        targetX =
-          rect.width / 2 + Math.sin(current.time * 0.8) * (rect.width * 0.35);
-        targetY =
-          rect.height / 2 + Math.cos(current.time * 1.2) * (rect.height * 0.2);
+        targetX = rect.width / 2 + Math.sin(current.time * 0.8) * (rect.width * 0.35);
+        targetY = rect.height / 2 + Math.cos(current.time * 1.2) * (rect.height * 0.2);
       }
 
       setPos((prev) => {
@@ -377,8 +330,7 @@ const projects = [
     no: "01",
     title: "KainPo",
     tags: ["React Native", "Supabase", "Gemini"],
-    blurb:
-      "A Mobile Application for Automated FEL- Based Filipino Meal Plan Optimization",
+    blurb: "A Mobile Application for Automated FEL- Based Filipino Meal Plan Optimization",
     bg: "var(--orange)",
     image: imgKainPo,
   },
@@ -404,8 +356,7 @@ const projects = [
     no: "04",
     title: "Flexor",
     tags: ["Next.Js", "Gemini"],
-    blurb:
-      "A hackathon project webapp that aims to track budgeting and user spending pattern.",
+    blurb: "A hackathon project webapp that aims to track budgeting and user spending pattern.",
     bg: "var(--coral)",
     image: imgFlexor,
   },
@@ -450,8 +401,7 @@ const awards = [
   },
   {
     title: "University / College Scholar",
-    subtitle:
-      "Consistent University Scholar — GWA: 1.667, University of the Philippines Los Baños",
+    subtitle: "Consistent University Scholar — GWA: 1.667, University of the Philippines Los Baños",
     note: "",
     year: "2021–2026",
   },
@@ -464,9 +414,7 @@ const awards = [
 ];
 
 function Index() {
-  const [selectedProject, setSelectedProject] = useState<
-    (typeof projects)[number] | null
-  >(null);
+  const [selectedProject, setSelectedProject] = useState<(typeof projects)[number] | null>(null);
   const [showScroll, setShowScroll] = useState(false);
 
   useEffect(() => {
@@ -533,31 +481,15 @@ function Index() {
                 <SectionReveal>
                   <div className="flex items-center gap-3 text-[0.68rem] font-semibold uppercase tracking-[0.38em] text-ink/45">
                     <span className="h-px w-10 bg-orange/45" />
-                    Art-focused portfolio hero
+                    Ron Dennis Comia
                   </div>
                 </SectionReveal>
               </div>
-              <SectionReveal delay={60} className="shrink-0">
-                <div className="flex flex-wrap items-center justify-end gap-2 md:gap-3 pt-2 text-[0.7rem] font-semibold uppercase tracking-[0.28em]">
-                  <span className="rounded-full border border-ink/25 bg-cream/70 px-3 py-1 text-ink/70 backdrop-blur-sm">
-                    Art Direction
-                  </span>
-                  <span className="rounded-full border border-blue/25 bg-blue px-3 py-1 text-cream">
-                    Portfolio
-                  </span>
-                </div>
-              </SectionReveal>
             </div>
 
             <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
               <div className="max-w-2xl">
                 <InteractiveTitle />
-                <SectionReveal delay={180}>
-                  <p className="mt-6 max-w-xl text-lg md:text-xl leading-relaxed text-ink/75">
-                    Super artsy. The work here blends color studies, structure,
-                    motion, and tactile surface into a single visual system.
-                  </p>
-                </SectionReveal>
                 <SectionReveal delay={260}>
                   <div className="mt-8 flex flex-wrap gap-4">
                     <Link
@@ -579,33 +511,21 @@ function Index() {
               <div className="space-y-5">
                 <div className="grid grid-cols-12 gap-5">
                   <div className="hidden lg:block lg:col-span-2" aria-hidden />
-                  <SectionReveal
-                    delay={120}
-                    className="col-span-12 md:col-span-8 lg:col-span-6 lg:col-start-5"
-                  >
+                  <div className="col-span-12 md:col-span-8 lg:col-span-6 lg:col-start-5">
                     <HeroTileCard tile={heroTiles[0]} />
-                  </SectionReveal>
+                  </div>
                 </div>
 
                 <div className="grid grid-cols-12 gap-5">
-                  <SectionReveal
-                    delay={180}
-                    className="col-span-12 sm:col-span-4"
-                  >
+                  <div className="col-span-12 sm:col-span-4">
                     <HeroTileCard tile={heroTiles[1]} />
-                  </SectionReveal>
-                  <SectionReveal
-                    delay={240}
-                    className="col-span-12 sm:col-span-4"
-                  >
+                  </div>
+                  <div className="col-span-12 sm:col-span-4">
                     <HeroTileCard tile={heroTiles[2]} />
-                  </SectionReveal>
-                  <SectionReveal
-                    delay={300}
-                    className="col-span-12 sm:col-span-4"
-                  >
+                  </div>
+                  <div className="col-span-12 sm:col-span-4">
                     <HeroTileCard tile={heroTiles[3]} />
-                  </SectionReveal>
+                  </div>
                 </div>
               </div>
             </div>
@@ -636,15 +556,11 @@ function Index() {
                 </SectionReveal>
                 <SectionReveal delay={150}>
                   <div className="mt-5 flex flex-col gap-1.5">
-                    <div className="text-cream/50 text-xs uppercase tracking-widest">
-                      Education
-                    </div>
+                    <div className="text-cream/50 text-xs uppercase tracking-widest">Education</div>
                     <div className="text-cream font-semibold text-lg">
                       University of the Philippines – Los Baños
                     </div>
-                    <div className="text-cream/55 text-base">
-                      BS Computer Science
-                    </div>
+                    <div className="text-cream/55 text-base">BS Computer Science</div>
                   </div>
                 </SectionReveal>
                 <SectionReveal delay={220}>
@@ -701,10 +617,7 @@ function Index() {
                   onClick={() => setSelectedProject(p)}
                   className="group text-left w-full bg-blue rounded-2xl overflow-hidden hover:scale-[1.02] active:scale-[0.99] transition-transform duration-300 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-orange"
                 >
-                  <div
-                    className="relative overflow-hidden h-64"
-                    style={{ background: p.bg }}
-                  >
+                  <div className="relative overflow-hidden h-64" style={{ background: p.bg }}>
                     <img
                       src={p.image}
                       alt={p.title}
@@ -716,9 +629,7 @@ function Index() {
                   </div>
                   <div className="px-4 pt-3 pb-5">
                     <div className="flex items-start justify-between gap-3 mb-2">
-                      <h3 className="text-cream font-bold text-lg leading-snug">
-                        {p.title}
-                      </h3>
+                      <h3 className="text-cream font-bold text-lg leading-snug">{p.title}</h3>
                       <div className="shrink-0 w-9 h-9 rounded-full border border-cream/20 flex items-center justify-center text-cream/50 group-hover:bg-orange group-hover:border-orange group-hover:text-cream transition-all duration-200">
                         <ArrowUpRight className="w-4 h-4" />
                       </div>
@@ -744,10 +655,7 @@ function Index() {
         </section>
 
         {/* AWARDS & RECOGNITIONS */}
-        <section
-          id="about"
-          className="bg-orange text-cream py-24 px-6 md:px-12"
-        >
+        <section id="about" className="bg-orange text-cream py-24 px-6 md:px-12">
           <div className="w-full">
             <SectionReveal>
               <h2 className="font-display font-bold text-6xl md:text-8xl mb-16 leading-none tracking-[-0.10em]">
@@ -759,9 +667,7 @@ function Index() {
                 <SectionReveal key={i} delay={i * 80}>
                   <div className="flex items-start justify-between py-7 border-t border-cream/25 gap-8">
                     <div>
-                      <div className="font-display font-bold text-xl md:text-2xl">
-                        {a.title}
-                      </div>
+                      <div className="font-display font-bold text-xl md:text-2xl">{a.title}</div>
                       <p className="text-base md:text-lg text-cream/70 mt-1 leading-relaxed">
                         {a.subtitle}
                       </p>
@@ -772,9 +678,7 @@ function Index() {
                           {a.note}
                         </span>
                       )}
-                      <div className="text-cream/60 text-base md:text-lg font-medium">
-                        {a.year}
-                      </div>
+                      <div className="text-cream/60 text-base md:text-lg font-medium">{a.year}</div>
                     </div>
                   </div>
                 </SectionReveal>
@@ -863,9 +767,8 @@ function Index() {
               </SectionReveal>
               <SectionReveal delay={180}>
                 <p className="mt-8 text-ink/70 max-w-sm">
-                  Open to full-time engineering roles, technical collaborations,
-                  and research opportunities. Let's connect and discuss how we
-                  can work together.
+                  Open to full-time engineering roles, technical collaborations, and research
+                  opportunities. Let's connect and discuss how we can work together.
                 </p>
               </SectionReveal>
               <SectionReveal delay={260}>
@@ -904,10 +807,7 @@ function Index() {
         </button>
       )}
       {selectedProject && (
-        <ProjectModal
-          project={selectedProject}
-          onClose={() => setSelectedProject(null)}
-        />
+        <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
       )}
     </div>
   );
@@ -958,14 +858,8 @@ function DraggableSticker({
       const deltaXPercent = (deltaX / rect.width) * 100;
       const deltaYPercent = (deltaY / rect.height) * 100;
 
-      const newX = Math.max(
-        0,
-        Math.min(100, positionStartRef.current.x + deltaXPercent),
-      );
-      const newY = Math.max(
-        0,
-        Math.min(100, positionStartRef.current.y + deltaYPercent),
-      );
+      const newX = Math.max(0, Math.min(100, positionStartRef.current.x + deltaXPercent));
+      const newY = Math.max(0, Math.min(100, positionStartRef.current.y + deltaYPercent));
 
       setPosition({ x: newX, y: newY });
     };
@@ -1004,14 +898,8 @@ function DraggableSticker({
       const deltaXPercent = (deltaX / rect.width) * 100;
       const deltaYPercent = (deltaY / rect.height) * 100;
 
-      const newX = Math.max(
-        0,
-        Math.min(100, positionStartRef.current.x + deltaXPercent),
-      );
-      const newY = Math.max(
-        0,
-        Math.min(100, positionStartRef.current.y + deltaYPercent),
-      );
+      const newX = Math.max(0, Math.min(100, positionStartRef.current.x + deltaXPercent));
+      const newY = Math.max(0, Math.min(100, positionStartRef.current.y + deltaYPercent));
 
       setPosition({ x: newX, y: newY });
     };
@@ -1054,9 +942,7 @@ function DraggableSticker({
             ? "none"
             : "transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s ease",
           animation:
-            isDragging || isHovered
-              ? "none"
-              : "stickerWiggleInvite 10s ease-in-out infinite",
+            isDragging || isHovered ? "none" : "stickerWiggleInvite 10s ease-in-out infinite",
           animationDelay: delay,
           "--rot": `${defaultRotation}deg`,
         } as React.CSSProperties
@@ -1077,20 +963,10 @@ function DraggableSticker({
   );
 }
 
-function ContactLink({
-  label,
-  value,
-  href,
-}: {
-  label: string;
-  value: string;
-  href: string;
-}) {
+function ContactLink({ label, value, href }: { label: string; value: string; href: string }) {
   return (
     <a href={href} className="group block">
-      <div className="font-display font-bold text-orange text-2xl mb-1">
-        {label}
-      </div>
+      <div className="font-display font-bold text-orange text-2xl mb-1">{label}</div>
       <div className="text-sm text-ink/70 group-hover:text-ink underline decoration-orange/40 underline-offset-4">
         {value}
       </div>
@@ -1141,11 +1017,7 @@ function ProjectModal({
         >
           <div className="absolute inset-0 grid-paper opacity-20" />
           {project.image ? (
-            <img
-              src={project.image}
-              alt={project.title}
-              className="w-full h-full object-cover"
-            />
+            <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center">
               <svg
@@ -1195,9 +1067,7 @@ function ProjectModal({
               </span>
             ))}
           </div>
-          <p className="mt-6 text-ink/70 leading-relaxed text-lg">
-            {project.blurb}
-          </p>
+          <p className="mt-6 text-ink/70 leading-relaxed text-lg">{project.blurb}</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a
               href={`mailto:crondennis@gmail.com?subject=Request%20Demo%20for%20${encodeURIComponent(project.title)}&body=Hi%20Ron,%0D%0A%0D%0AI%20would%20like%20to%20request%20a%20demo%20for%20the%20project:%20${encodeURIComponent(project.title)}.%0D%0A%0D%0AThanks!`}

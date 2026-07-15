@@ -43,9 +43,7 @@ function LoadingScreen({ onDone }: { onDone: () => void }) {
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "var(--cream)",
-        animation: phase === "out"
-          ? "loaderFadeOut 0.75s ease-in-out forwards"
-          : undefined,
+        animation: phase === "out" ? "loaderFadeOut 0.75s ease-in-out forwards" : undefined,
         overflow: "hidden",
       }}
     >
@@ -173,10 +171,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Ron Dennis Comia" },
-      { name: "description", content: "Portfolio of Ron Comia — designer and multidisciplinary maker building bold, human-first work." },
+      {
+        name: "description",
+        content:
+          "Portfolio of Ron Comia — designer and multidisciplinary maker building bold, human-first work.",
+      },
       { name: "author", content: "Ron Comia" },
       { property: "og:title", content: "Ron Comia — Designing for the People" },
-      { property: "og:description", content: "Portfolio of Ron Comia — designer and multidisciplinary maker." },
+      {
+        property: "og:description",
+        content: "Portfolio of Ron Comia — designer and multidisciplinary maker.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -185,7 +190,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", href: websiteLogo, type: "image/png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap",
+      },
     ],
   }),
   shellComponent: RootShell,
@@ -199,6 +207,17 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-262SQDW9T3" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-262SQDW9T3');
+            `,
+          }}
+        />
         {/* Loading bar keyframe — needs to live in a style tag since it references a CSS custom prop */}
         <style>{`
           @keyframes loaderBar {
