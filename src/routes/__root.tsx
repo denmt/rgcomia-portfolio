@@ -1,6 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import websiteLogo from "../assets/website_logo.png";
-import nameCard from "../assets/name_card.png";
 import {
   Outlet,
   Link,
@@ -9,10 +8,11 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, useState, type ReactNode } from "react";
+import { createElement, useEffect, useState, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import preloader from "../assets/preloader.lottie?url";
 
 // ── Loading / Intro Screen ────────────────────────────────────────────────────
 function LoadingScreen({ onDone }: { onDone: () => void }) {
@@ -31,6 +31,10 @@ function LoadingScreen({ onDone }: { onDone: () => void }) {
       return () => clearTimeout(done);
     }
   }, [phase, onDone]);
+
+  useEffect(() => {
+    void import("@lottiefiles/dotlottie-wc");
+  }, []);
 
   return (
     <div
@@ -62,45 +66,21 @@ function LoadingScreen({ onDone }: { onDone: () => void }) {
         }}
       />
 
-      {/* Logo */}
-      <img
-        src={nameCard}
-        alt="Ron Comia"
-        style={{
-          width: "clamp(180px, 30vw, 420px)",
-          height: "auto",
-          objectFit: "contain",
+      {/* Preloader asset */}
+      {createElement("dotlottie-wc", {
+        src: preloader,
+        autoplay: true,
+        loop: true,
+        style: {
+          width: "clamp(180px, 24vw, 320px)",
+          height: "clamp(180px, 24vw, 320px)",
           animation: "logoReveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both",
           position: "relative",
           zIndex: 1,
-        }}
-      />
-
-      {/* Loading bar */}
-      <div
-        style={{
-          marginTop: "2.5rem",
-          width: "clamp(80px, 12vw, 140px)",
-          height: "2px",
-          borderRadius: "999px",
-          backgroundColor: "color-mix(in oklab, var(--cream) 15%, transparent)",
-          overflow: "hidden",
-          position: "relative",
-          zIndex: 1,
-          animation: "logoReveal 0.5s ease 0.5s both",
-        }}
-      >
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            backgroundColor: "var(--orange)",
-            borderRadius: "999px",
-            transformOrigin: "left",
-            animation: "loaderBar 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both",
-          }}
-        />
-      </div>
+          pointerEvents: "none",
+        },
+        "aria-label": "Loading",
+      })}
     </div>
   );
 }
@@ -218,13 +198,6 @@ function RootShell({ children }: { children: ReactNode }) {
             `,
           }}
         />
-        {/* Loading bar keyframe — needs to live in a style tag since it references a CSS custom prop */}
-        <style>{`
-          @keyframes loaderBar {
-            from { transform: scaleX(0); }
-            to   { transform: scaleX(1); }
-          }
-        `}</style>
       </head>
       <body>
         {children}

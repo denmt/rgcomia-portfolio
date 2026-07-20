@@ -10,13 +10,14 @@ import imgFlexor from "@/assets/flexor.png";
 import imgIcSync from "@/assets/icsync.png";
 import imgUpou from "@/assets/upou.png";
 import designBoard from "@/assets/design_board.png";
+import heroElement from "@/assets/hero-element.gif";
 import sticker1 from "@/assets/board_sticker1.png";
 import sticker2 from "@/assets/board_sticker2.png";
 import sticker3 from "@/assets/board_sticker3.png";
 import sticker4 from "@/assets/board_sticker4.png";
 import sticker5 from "@/assets/board_sticker5.png";
 import sticker6 from "@/assets/board_sticker6.png";
-import logo from "@/assets/website_logo.png";
+import introBackground from "@/assets/intro-background.svg";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -96,232 +97,6 @@ function InteractiveTitle() {
         </span>
       ))}
     </h1>
-  );
-}
-
-type HeroTile = {
-  bg: string;
-  variant: "blueSplit" | "greenSplit" | "purpleSplit" | "orangeDots";
-};
-
-const heroTiles: HeroTile[] = [
-  {
-    bg: "#4d65f3",
-    variant: "blueSplit",
-  },
-  {
-    bg: "#f9e7cb",
-    variant: "greenSplit",
-  },
-  {
-    bg: "#f9e7cb",
-    variant: "purpleSplit",
-  },
-  {
-    bg: "#ff8a21",
-    variant: "orangeDots",
-  },
-];
-
-function HeroTileArtwork({ variant }: { variant: HeroTile["variant"] }) {
-  if (variant === "blueSplit") {
-    return (
-      <svg
-        viewBox="0 0 100 100"
-        className="absolute inset-0 h-full w-full"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
-        <rect width="100" height="100" fill="#4d65f3" />
-        <circle className="hero-flow hero-flow-slower" cx="4" cy="4" r="47" fill="#ef6a11" />
-        <circle
-          className="hero-flow hero-flow-reverse hero-flow-delay-1"
-          cx="76"
-          cy="24"
-          r="22"
-          fill="#f9e7cb"
-        />
-        <circle className="hero-flow hero-flow-delay-2" cx="24" cy="76" r="22" fill="#f9e7cb" />
-        <circle
-          className="hero-flow hero-flow-slower hero-flow-reverse hero-flow-delay-3"
-          cx="96"
-          cy="96"
-          r="47"
-          fill="#ef6a11"
-        />
-      </svg>
-    );
-  }
-
-  if (variant === "greenSplit") {
-    return (
-      <svg
-        viewBox="0 0 100 100"
-        className="absolute inset-0 h-full w-full"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
-        <rect width="100" height="100" fill="#f9e7cb" />
-        <polygon className="hero-flow hero-flow-slower" points="0,0 50,50 0,100" fill="#4e9a70" />
-        <polygon
-          className="hero-flow hero-flow-reverse hero-flow-delay-2"
-          points="100,0 50,50 100,100"
-          fill="#4e9a70"
-        />
-      </svg>
-    );
-  }
-
-  if (variant === "purpleSplit") {
-    return (
-      <svg
-        viewBox="0 0 100 100"
-        className="absolute inset-0 h-full w-full"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
-        <rect width="100" height="100" fill="#f9e7cb" />
-        <polygon className="hero-flow hero-flow-slower" points="0,0 50,50 100,0" fill="#c86fda" />
-        <polygon
-          className="hero-flow hero-flow-reverse hero-flow-delay-2"
-          points="0,100 50,50 100,100"
-          fill="#c86fda"
-        />
-      </svg>
-    );
-  }
-
-  return (
-    <svg
-      viewBox="0 0 100 100"
-      className="absolute inset-0 h-full w-full"
-      preserveAspectRatio="none"
-      aria-hidden="true"
-    >
-      <rect width="100" height="100" fill="#ff8a21" />
-      <g fill="#f9e7cb">
-        <circle className="hero-flow hero-flow-delay-1" cx="18" cy="18" r="10" />
-        <circle className="hero-flow hero-flow-reverse hero-flow-delay-2" cx="50" cy="18" r="10" />
-        <circle className="hero-flow hero-flow-delay-3" cx="82" cy="18" r="10" />
-        <circle className="hero-flow hero-flow-reverse hero-flow-delay-4" cx="18" cy="50" r="10" />
-        <circle className="hero-flow hero-flow-slower" cx="50" cy="50" r="10" />
-        <circle className="hero-flow hero-flow-reverse hero-flow-delay-1" cx="82" cy="50" r="10" />
-        <circle className="hero-flow hero-flow-delay-2" cx="18" cy="82" r="10" />
-        <circle className="hero-flow hero-flow-reverse hero-flow-delay-3" cx="50" cy="82" r="10" />
-        <circle className="hero-flow hero-flow-delay-4" cx="82" cy="82" r="10" />
-      </g>
-    </svg>
-  );
-}
-
-function HeroTileCard({ tile }: { tile: HeroTile }) {
-  return (
-    <article
-      className="relative overflow-hidden rounded-[1.85rem] shadow-[0_10px_26px_rgba(24,31,80,0.08)]"
-      style={{ background: tile.bg }}
-    >
-      <div className="relative aspect-square min-h-[170px] w-full">
-        <HeroTileArtwork variant={tile.variant} />
-      </div>
-    </article>
-  );
-}
-
-function InteractiveGraph() {
-  const [pos, setPos] = useState({ x: 600, y: 150 });
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
-  const [time, setTime] = useState(0);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  // Store refs to keep values fresh in requestAnimationFrame loop
-  const stateRef = useRef({ isHovered, mousePos, time });
-  stateRef.current = { isHovered, mousePos, time };
-
-  useEffect(() => {
-    let animId: number;
-    const tick = () => {
-      // Slower float time increment
-      setTime((t) => t + 0.005);
-
-      const current = stateRef.current;
-      const parent = containerRef.current?.parentElement;
-      const rect = parent ? parent.getBoundingClientRect() : { width: 1200, height: 300 };
-
-      let targetX = 0;
-      let targetY = 0;
-      if (current.isHovered) {
-        targetX = current.mousePos.x;
-        targetY = current.mousePos.y;
-      } else {
-        // Slow organic floating orbit
-        targetX = rect.width / 2 + Math.sin(current.time * 0.8) * (rect.width * 0.35);
-        targetY = rect.height / 2 + Math.cos(current.time * 1.2) * (rect.height * 0.2);
-      }
-
-      setPos((prev) => {
-        const ease = 0.08;
-        return {
-          x: prev.x + (targetX - prev.x) * ease,
-          y: prev.y + (targetY - prev.y) * ease,
-        };
-      });
-
-      animId = requestAnimationFrame(tick);
-    };
-
-    animId = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(animId);
-  }, []);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-    const parent = containerRef.current.parentElement;
-    if (!parent) return;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = parent.getBoundingClientRect();
-      setMousePos({
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
-      });
-    };
-
-    const handleMouseEnter = () => setIsHovered(true);
-    const handleMouseLeave = () => setIsHovered(false);
-
-    parent.addEventListener("mousemove", handleMouseMove);
-    parent.addEventListener("mouseenter", handleMouseEnter);
-    parent.addEventListener("mouseleave", handleMouseLeave);
-
-    return () => {
-      parent.removeEventListener("mousemove", handleMouseMove);
-      parent.removeEventListener("mouseenter", handleMouseEnter);
-      parent.removeEventListener("mouseleave", handleMouseLeave);
-    };
-  }, []);
-
-  return (
-    <div
-      ref={containerRef}
-      className="absolute inset-x-0 top-0 bottom-[-100px] z-0 pointer-events-none overflow-hidden select-none"
-    >
-      {/* High-lighted grid lines overlay */}
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage: `
-            linear-gradient(to right, color-mix(in oklab, var(--orange) 75%, transparent) 1px, transparent 1px),
-            linear-gradient(to bottom, color-mix(in oklab, var(--orange) 75%, transparent) 1px, transparent 1px)
-          `,
-          backgroundSize: "28px 28px",
-          animation: "moveGrid 90s linear infinite",
-          maskImage: `radial-gradient(circle 140px at ${pos.x}px ${pos.y}px, black 20%, transparent 100%)`,
-          WebkitMaskImage: `radial-gradient(circle 140px at ${pos.x}px ${pos.y}px, black 20%, transparent 100%)`,
-          opacity: 0.9,
-        }}
-      />
-    </div>
   );
 }
 
@@ -416,6 +191,14 @@ const awards = [
 function Index() {
   const [selectedProject, setSelectedProject] = useState<(typeof projects)[number] | null>(null);
   const [showScroll, setShowScroll] = useState(false);
+  const [navIsOnDarkSection, setNavIsOnDarkSection] = useState(false);
+  const [heroElementMotion, setHeroElementMotion] = useState({ x: 0, y: 0 });
+  const [heroElementOffset, setHeroElementOffset] = useState({ x: 0, y: 0 });
+  const [heroElementDragging, setHeroElementDragging] = useState(false);
+  const introCardRef = useRef<HTMLDivElement>(null);
+  const awardsSectionRef = useRef<HTMLElement>(null);
+  const heroElementPointerStartRef = useRef({ x: 0, y: 0 });
+  const heroElementOffsetStartRef = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -424,8 +207,26 @@ function Index() {
       } else {
         setShowScroll(false);
       }
+
+      const navProbeY = 40;
+      const darkSections = [introCardRef.current, awardsSectionRef.current].filter(
+        (section): section is HTMLElement => Boolean(section),
+      );
+
+      const isOnDarkSection = darkSections.some((section) => {
+        const rect = section.getBoundingClientRect();
+        return rect.top <= navProbeY && rect.bottom >= navProbeY;
+      });
+
+      setNavIsOnDarkSection(isOnDarkSection);
+      const scrollY = window.scrollY;
+      setHeroElementMotion({
+        x: Math.min(scrollY * 0.55, 520),
+        y: Math.sin(scrollY / 70) * 16 + Math.sin(scrollY / 24) * 6,
+      });
     };
     window.addEventListener("scroll", handleScroll);
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -434,10 +235,30 @@ function Index() {
   };
 
   return (
-    <div className="min-h-screen bg-cream text-ink">
+    <div className="relative min-h-screen bg-cream text-ink">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-[-48px] h-[880px] md:h-[960px]"
+        style={{
+          backgroundImage: `url(${introBackground})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center top",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        <div className="absolute inset-0 bg-cream/8 backdrop-blur-[0.5px]" />
+      </div>
       {/* NAV */}
-      <header className="px-6 md:px-12 p-3 m-2">
-        <nav className="relative flex items-center justify-center py-4">
+      <header
+        className={`p-2 m-2 sticky top-2 z-50 border rounded-xl backdrop-blur-md transition-colors duration-500 ease-out ${
+          navIsOnDarkSection ? "bg-ink/10 border-cream/20" : "bg-ink/10 border-ink/10"
+        }`}
+      >
+        <nav
+          className={`relative flex items-center justify-center py-4 transition-colors duration-500 ease-out ${
+            navIsOnDarkSection ? "text-cream" : "text-ink"
+          }`}
+        >
           {/* Centered Navigation */}
           <ul className="flex items-center gap-6 md:gap-10 text-base font-medium">
             <li>
@@ -468,73 +289,88 @@ function Index() {
         </nav>
       </header>
 
-      <main className="overflow-x-hidden">
+      <main className="relative z-10 overflow-x-hidden">
         {/* HERO */}
         <section className="relative px-4 md:px-8 pt-6 md:pt-10 pb-14 overflow-hidden">
           <div
-            className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(79,116,242,0.12),transparent_34%),radial-gradient(circle_at_10%_90%,rgba(255,148,52,0.14),transparent_24%),radial-gradient(circle_at_90%_86%,rgba(215,125,223,0.12),transparent_28%)]"
-            aria-hidden
-          />
-          <div className="relative mx-auto max-w-7xl">
-            <div className="mb-6 flex items-start justify-between gap-4">
+            role="img"
+            aria-label="Hero decoration you can drag around"
+            className={`absolute left-[-12px] top-16 md:top-20 z-0 w-[clamp(180px,24vw,340px)] opacity-95 select-none touch-none ${
+              heroElementDragging ? "cursor-grabbing" : "cursor-grab"
+            }`}
+            onPointerDown={(event) => {
+              setHeroElementDragging(true);
+              heroElementPointerStartRef.current = { x: event.clientX, y: event.clientY };
+              heroElementOffsetStartRef.current = { ...heroElementOffset };
+              event.currentTarget.setPointerCapture(event.pointerId);
+            }}
+            onPointerMove={(event) => {
+              if (!heroElementDragging) return;
+              const deltaX = event.clientX - heroElementPointerStartRef.current.x;
+              const deltaY = event.clientY - heroElementPointerStartRef.current.y;
+              setHeroElementOffset({
+                x: heroElementOffsetStartRef.current.x + deltaX,
+                y: heroElementOffsetStartRef.current.y + deltaY,
+              });
+            }}
+            onPointerUp={(event) => {
+              setHeroElementDragging(false);
+              event.currentTarget.releasePointerCapture(event.pointerId);
+            }}
+            onPointerCancel={(event) => {
+              setHeroElementDragging(false);
+              event.currentTarget.releasePointerCapture(event.pointerId);
+            }}
+            style={{
+              transform: `translate3d(${heroElementMotion.x + heroElementOffset.x}px, ${
+                heroElementMotion.y + heroElementOffset.y
+              }px, 0)`,
+              transition: heroElementDragging ? "none" : "transform 500ms ease-out",
+            }}
+          >
+            <img
+              src={heroElement}
+              alt=""
+              className="w-full h-auto object-contain pointer-events-none"
+            />
+          </div>
+
+          <div className="relative mx-auto max-w-7xl z-10 flex flex-col items-center text-center">
+            <div className="mb-6 flex justify-center gap-4">
               <div className="max-w-2xl">
                 <SectionReveal>
-                  <div className="flex items-center gap-3 text-[0.68rem] font-semibold uppercase tracking-[0.38em] text-ink/45">
-                    <span className="h-px w-10 bg-orange/45" />
+                  <div className="flex items-center justify-center gap-3 text-[0.68rem] font-semibold uppercase tracking-[0.38em] text-ink/45">
                     Ron Dennis Comia
                   </div>
                 </SectionReveal>
               </div>
             </div>
 
-            <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-              <div className="max-w-2xl">
-                <InteractiveTitle />
-                <SectionReveal delay={260}>
-                  <div className="mt-8 flex flex-wrap gap-4">
-                    <Link
-                      to="/resume"
-                      className="inline-flex items-center justify-center rounded-full bg-orange px-8 py-4 text-sm font-semibold uppercase tracking-[0.28em] text-cream transition-transform hover:-translate-y-0.5"
-                    >
-                      Resume
-                    </Link>
-                    <a
-                      href="#contact"
-                      className="inline-flex items-center justify-center rounded-full border-2 border-ink px-8 py-4 text-sm font-semibold uppercase tracking-[0.28em] text-ink transition-transform hover:-translate-y-0.5 hover:bg-ink hover:text-cream"
-                    >
-                      Contact Me
-                    </a>
-                  </div>
-                </SectionReveal>
-              </div>
-
-              <div className="space-y-5">
-                <div className="grid grid-cols-12 gap-5">
-                  <div className="hidden lg:block lg:col-span-2" aria-hidden />
-                  <div className="col-span-12 md:col-span-8 lg:col-span-6 lg:col-start-5">
-                    <HeroTileCard tile={heroTiles[0]} />
-                  </div>
+            <div className="flex flex-col items-center">
+              <InteractiveTitle />
+              <SectionReveal delay={260}>
+                <div className="mt-8 flex flex-wrap justify-center gap-4">
+                  <Link
+                    to="/resume"
+                    className="inline-flex items-center justify-center rounded-full bg-orange px-8 py-4 text-sm font-semibold uppercase tracking-[0.28em] text-cream transition-transform hover:-translate-y-0.5"
+                  >
+                    Resume
+                  </Link>
+                  <a
+                    href="#contact"
+                    className="inline-flex items-center justify-center rounded-full border-2 border-ink px-8 py-4 text-sm font-semibold uppercase tracking-[0.28em] text-ink transition-transform hover:-translate-y-0.5 hover:bg-ink hover:text-cream"
+                  >
+                    View Work
+                  </a>
                 </div>
-
-                <div className="grid grid-cols-12 gap-5">
-                  <div className="col-span-12 sm:col-span-4">
-                    <HeroTileCard tile={heroTiles[1]} />
-                  </div>
-                  <div className="col-span-12 sm:col-span-4">
-                    <HeroTileCard tile={heroTiles[2]} />
-                  </div>
-                  <div className="col-span-12 sm:col-span-4">
-                    <HeroTileCard tile={heroTiles[3]} />
-                  </div>
-                </div>
-              </div>
+              </SectionReveal>
             </div>
           </div>
         </section>
 
         {/* INTRO CARD */}
-        <section className="pb-12">
-          <div className="relative bg-blue text-cream overflow-hidden pt-8 md:pt-12 px-6 md:px-12 pb-0 md:pb-0 min-h-[480px] md:min-h-[600px] rounded-t-[50%_50px] md:rounded-t-[50%_100px] flex flex-col justify-end">
+        <section ref={introCardRef} className="relative z-10 pb-12 mt-2 md:mt-6">
+          <div className="relative bg-blue backdrop-blur-[1px] text-cream overflow-hidden pt-8 md:pt-12 px-6 md:px-12 pb-0 md:pb-0 min-h-[480px] md:min-h-[600px] rounded-t-[50%_50px] md:rounded-t-[50%_100px] flex flex-col justify-end">
             <div className="relative w-full max-w-7xl mx-auto grid md:grid-cols-2 gap-8 items-end">
               <div className="pb-8 md:pb-10">
                 <SectionReveal>
@@ -655,7 +491,11 @@ function Index() {
         </section>
 
         {/* AWARDS & RECOGNITIONS */}
-        <section id="about" className="bg-orange text-cream py-24 px-6 md:px-12">
+        <section
+          id="about"
+          ref={awardsSectionRef}
+          className="bg-orange text-cream py-24 px-6 md:px-12"
+        >
           <div className="w-full">
             <SectionReveal>
               <h2 className="font-display font-bold text-6xl md:text-8xl mb-16 leading-none tracking-[-0.10em]">
@@ -1039,12 +879,9 @@ function ProjectModal({
           <div className="flex items-center justify-between mb-6">
             {/* App Logo Placeholder */}
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl flex items-center justify-center font-display font-bold text-xl text-cream shadow-md bg-blue">
-                {project.title.substring(0, 2)}
-              </div>
-              <span className="font-display font-semibold text-lg text-ink/65 uppercase tracking-wider">
-                {project.title} App
-              </span>
+              <h2 className="font-display font-bold text-3xl md:text-4xl text-ink leading-tight">
+                {project.title}
+              </h2>
             </div>
             <button
               onClick={onClose}
@@ -1054,9 +891,6 @@ function ProjectModal({
               ×
             </button>
           </div>
-          <h2 className="font-display font-bold text-3xl md:text-4xl text-ink leading-tight">
-            {project.title}
-          </h2>
           <div className="flex flex-wrap gap-2 mt-3">
             {project.tags.map((tag) => (
               <span
